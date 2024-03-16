@@ -16,6 +16,8 @@ int main() {
     int quantities[MAX_CATEGORIES];
     char xAxisLabel[MAX_NAME_LEN + 1];
     char sortChoice;
+    int choice;
+    int userChoice;
     int numCategories;
     int frontSpacing;
     int scaleofXaxis;
@@ -40,7 +42,7 @@ int main() {
         for (int j = 0; j < i; j++) {
             if (strcmp(categories[i], categories[j]) == 0) {
                 printf("Category name already exists. Please enter a different name: ");
-                scanf("%s", categories[i]);
+                scanf(" %s", categories[i]);
                 j = -1;
             }
         }
@@ -71,6 +73,35 @@ int main() {
         // ... (add sorting logic for quantities and categories)
     }
 
+    displayChart(title, categories, quantities, numCategories, frontSpacing, scaleofXaxis, xAxisLabel);
+
+    printf("1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Exit\n\nEnter option: ");
+    scanf(" %d", &choice);
+
+    while (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+        if (choice == 1) {
+            displayChart(title, categories, quantities, numCategories, frontSpacing, scaleofXaxis, xAxisLabel);        
+        }
+        else if (choice == 2) {
+            editValues(numCategories, categories, quantities);        
+        }
+        else if (choice == 3) {
+            newChart();
+        }
+        else if (choice == 4) {
+            exportChart(title, categories, quantities, numCategories, frontSpacing, scaleofXaxis, xAxisLabel);
+        }
+        else {
+
+        }
+        printf("1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Exit\n\nEnter option: ");
+        scanf(" %d", &choice);
+    }
+
+    return 0;
+}
+
+void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int frontSpacing, int scaleofXaxis, char *xAxisLabel) {
     // Find maximum quantity for scaling
     int maxQuantity = 0;
     for (int i = 0; i < numCategories; i++) {
@@ -103,24 +134,29 @@ int main() {
         }
         int scaledQty = (quantities[i] * 60) / maxQuantity; // Adjust scaling as needed
         for (int j = 0; j < scaledQty; j++) {
-            printf("X");
+            printf("\u2587");
         }
         printf("\n");
     }
 
-    // Print x-axis
-    printf("%s+", genWhitespace(frontSpacing));
-    for (int i = 0; i < maxScaledQty; i++) {
-        printf("-");
-    }
-    printf("+\n");
-
     // Print tick marks and labels
     int numTickMarks = (maxScaledQty / 15) + 1; // Roughly one tick every 10 units
     int tickSpacing = maxScaledQty / (numTickMarks - 1); 
+        
+    // Print x-axis
+    printf("%s+", genWhitespace(frontSpacing));
+    for (int i = 0; i < maxScaledQty; i++) {
+        if ((i + 1) % tickSpacing == 0) {
+            printf("+");
+        } else {
+            printf("-");
+        }
+    }
+    printf("\n");
+
     printf("%s", genWhitespace(frontSpacing));
     for (int i = 0; i <= 4; i++){
-        printf("%d", maxQuantity / 4 * i / scaleofXaxis);
+        printf("%d", (maxQuantity / 4 * i / scaleofXaxis));
         printf("%s", genWhitespace(14));
     }
 
@@ -128,10 +164,123 @@ int main() {
     printf("\n%s(x%d)", xAxisLabel, scaleofXaxis);
     printf("\n");
     printf("\n");
+}
 
-    // ... Add more features here!
 
-    return 0;
+void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
+    printf("\nChart Values\n------------\n");
+    for (int i = 0; i < numCategories; i++) { 
+        printf("%d. %s %d\n", i + 1, categories[i], quantities[i]);
+    }
+}
+
+void editValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
+    chartValues(numCategories, categories, quantities);
+    int index;
+    int userChoice;
+    printf("\nEnter Index of item to change: ");
+        scanf(" %d", &index);
+
+        if (index <= numCategories) {
+            printf("\nEnter 1 to change category %d name or 2 to change category %d quantity: ", index, index);
+            scanf(" %d", &userChoice);
+
+            if (userChoice == 1) {
+                printf("Enter new name for index %d: ", index);
+                scanf("%s", categories[index - 1]);
+            }
+            else if (userChoice == 2) {
+                printf("Enter new quantity for category %d: ", index);
+                scanf("%d", &quantities[index - 1]);
+            }
+            else {
+                printf("\nInput Error. Please enter valid input.");
+                editValues(numCategories, categories, quantities);        
+            }
+        }
+
+        else {
+            printf("\nInput Error. Please enter valid input.");
+            editValues(numCategories, categories, quantities);   
+        }
+}
+
+void newChart() {
+    main();
+}
+
+void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int frontSpacing, int scaleofXaxis, char *xAxisLabel) {
+    // Open a file for writing
+    FILE *file = fopen("D:/Documents/SIT Cyber/Programming Fundamentals/C Project/graph.txt", "w");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+    }
+    // Write the chart to the file
+    // Find maximum quantity for scaling
+    int maxQuantity = 0;
+    for (int i = 0; i < numCategories; i++) {
+        if (quantities[i] > maxQuantity) {
+            maxQuantity = quantities[i];
+        }
+    }
+
+    scaleofXaxis = multiplier(maxQuantity);
+
+    // Find maximum scaled quantity for x-axis scaling
+    int maxScaledQty = 0;
+    for (int i = 0; i < numCategories; i++) {
+        int scaledQty = (quantities[i] * 60) / maxQuantity; 
+        if (scaledQty > maxScaledQty) {
+            maxScaledQty = scaledQty;
+        }
+    }
+
+    // Print the bar chart
+    fprintf(file, "\n%s\n", title); 
+    for (int i = 0; i < numCategories; i++) {
+        int additionalSpacing = frontSpacing - strlen(categories[i]);
+        fprintf(file, "%s|\n", genWhitespace(frontSpacing)); // Adjust spacing as needed
+        if (additionalSpacing > 0) {
+            fprintf(file, "%s%s|", genWhitespace(additionalSpacing),categories[i]);
+        }
+        else {
+            fprintf(file, "%s|", categories[i]);
+        }
+        int scaledQty = (quantities[i] * 60) / maxQuantity; // Adjust scaling as needed
+        for (int j = 0; j < scaledQty; j++) {
+            fprintf(file, "\u2587");
+        }
+        fprintf(file, "\n");
+    }
+
+    // Print tick marks and labels
+    int numTickMarks = (maxScaledQty / 15) + 1; // Roughly one tick every 10 units
+    int tickSpacing = maxScaledQty / (numTickMarks - 1); 
+        
+    // Print x-axis
+    fprintf(file, "%s+", genWhitespace(frontSpacing));
+    for (int i = 0; i < maxScaledQty; i++) {
+        if ((i + 1) % tickSpacing == 0) {
+            fprintf(file, "+");
+        } else {
+            fprintf(file, "-");
+        }
+    }
+    fprintf(file, "\n");
+
+    fprintf(file, "%s", genWhitespace(frontSpacing));
+    for (int i = 0; i <= 4; i++){
+        fprintf(file, "%d", maxQuantity / 4 * i / scaleofXaxis);
+        fprintf(file, "%s", genWhitespace(14));
+    }
+
+    // print x-axis label
+    fprintf(file, "\n%s(x%d)", xAxisLabel, scaleofXaxis);
+
+    // Close the file
+    fclose(file);
+
+    printf("Chart saved.\n");      
 }
 
 char* genWhitespace (int numSpaces) {
