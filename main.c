@@ -8,6 +8,8 @@
 #define MAX_NAME_LEN 15
 
 char* genWhitespace(int numSpaces);
+char* alignCenter(char *title, int maxQuantity);
+// void formatNum(double num);
 int multiplier(int n);
 
 int main() {
@@ -122,6 +124,7 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
     }
 
     // Print the bar chart
+    title = alignCenter(title, maxScaledQty+frontSpacing);
     printf("\n%s\n", title); 
     for (int i = 0; i < numCategories; i++) {
         int additionalSpacing = frontSpacing - strlen(categories[i]);
@@ -155,12 +158,16 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
     printf("\n");
 
     printf("%s", genWhitespace(frontSpacing));
-    for (int i = 0; i <= 4; i++){
-        printf("%d", (maxQuantity / 4 * i / scaleofXaxis));
-        printf("%s", genWhitespace(14));
+    char numStr[5];
+    for (int i = 0; i <= 4; i++) {
+        // formatNum((((double)maxQuantity / 4) * (i / scaleofXaxis)));
+        sprintf(numStr, "%.2f", (((double)maxQuantity / 4) * ((double)i / scaleofXaxis)));
+        printf("%s", numStr);
+        printf("%s", genWhitespace(15-strlen(numStr)));
     }
 
     // print x-axis label
+    xAxisLabel = alignCenter(xAxisLabel, maxScaledQty+frontSpacing);
     printf("\n%s(x%d)", xAxisLabel, scaleofXaxis);
     printf("\n");
     printf("\n");
@@ -292,11 +299,36 @@ char* genWhitespace (int numSpaces) {
     return spaces;
 }
 
+char* alignCenter(char *title, int maxQuantity) {
+    int spacing = (maxQuantity - strlen(title)) / 2;
+    char *alignedTitle = malloc(strlen(title) + spacing + 1);
+    for (int count = 0; count < spacing; count++) {
+        alignedTitle[count] = ' ';
+    }
+
+    strcpy(alignedTitle+spacing, title);
+    return alignedTitle;
+}
+
+/* void formatNum(double num) {
+    if ((int)num == num) {
+        printf("%.0f", num);
+        printf("%s", genWhitespace(14));
+    } else {
+        printf("%.2f", num);
+        printf("%s", genWhitespace(10));
+    }
+} */
+
 int multiplier(int n) {
     int count = 0;
     while (n != 0) {
         n /= 10;
         ++count;
     }
-    return pow(10, count - 2);
+    if (pow(10, count - 2) < 1) {
+        return 1;
+    } else {
+        return pow(10, count - 2);
+    }
 }
