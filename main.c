@@ -33,8 +33,11 @@ int main() {
     // get number of categories
     do {
         printf("Enter the number of categories: ");
-        scanf("%d", &numCategories);
-        while (getchar() != '\n');
+        if (scanf("%d", &numCategories) != 1 || numCategories < 1 || numCategories > MAX_CATEGORIES) {
+            printf("Input error. Please enter a valid integer between 1 and %d.\n", MAX_CATEGORIES);
+            // Clear the input buffer
+            while (getchar() != '\n');
+        }
     } while (numCategories < 1 || numCategories > MAX_CATEGORIES);
 
     for (int i = 0; i < numCategories; i++) {
@@ -53,14 +56,13 @@ int main() {
             printf("Category name is too long. Please enter a shorter name: ");
             scanf("%s", categories[i]);
         }
-        // get largest length of front spacing
-        if (strlen(categories[i]) > frontSpacing) {
-            frontSpacing = strlen(categories[i]);
-        }
         do {
             printf("Enter quantity for %s: ", categories[i]);
-            scanf("%d", &quantities[i]);
-            while (getchar() != '\n');
+            if (scanf("%d", &quantities[i]) != 1 || quantities[i] <= 0) {
+                printf("Input error: Please enter a positive integer.\n");
+                // Clear input buffer
+                while (getchar() != '\n');
+            }
         } while (quantities[i] <= 0);
     }
 
@@ -75,14 +77,14 @@ int main() {
         // ... (add sorting logic for quantities and categories)
     }
 
-    displayChart(title, categories, quantities, numCategories, frontSpacing, scaleofXaxis, xAxisLabel);
+    displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
 
     printf("1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Exit\n\nEnter option: ");
     scanf(" %d", &choice);
 
     while (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
         if (choice == 1) {
-            displayChart(title, categories, quantities, numCategories, frontSpacing, scaleofXaxis, xAxisLabel);        
+            displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);        
         }
         else if (choice == 2) {
             editValues(numCategories, categories, quantities);        
@@ -93,9 +95,6 @@ int main() {
         else if (choice == 4) {
             exportChart(title, categories, quantities, numCategories, frontSpacing, scaleofXaxis, xAxisLabel);
         }
-        else {
-
-        }
         printf("1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Exit\n\nEnter option: ");
         scanf(" %d", &choice);
     }
@@ -103,12 +102,19 @@ int main() {
     return 0;
 }
 
-void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int frontSpacing, int scaleofXaxis, char *xAxisLabel) {
-    // Find maximum quantity for scaling
+void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel) {
+    
     int maxQuantity = 0;
+    int frontSpacing = 0;
+
     for (int i = 0; i < numCategories; i++) {
+        // Find maximum quantity for scaling
         if (quantities[i] > maxQuantity) {
             maxQuantity = quantities[i];
+        }
+        // Get largest length of front spacing
+        if (strlen(categories[i]) > frontSpacing) {
+            frontSpacing = strlen(categories[i]);
         }
     }
 
@@ -139,7 +145,7 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
         for (int j = 0; j < scaledQty; j++) {
             printf("\u2587");
         }
-        printf("\n");
+        printf(" %d \n", quantities[i]);
     }
 
     // Print tick marks and labels
@@ -161,7 +167,12 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
     char numStr[5];
     for (int i = 0; i <= 4; i++) {
         // formatNum((((double)maxQuantity / 4) * (i / scaleofXaxis)));
-        sprintf(numStr, "%.2f", (((double)maxQuantity / 4) * ((double)i / scaleofXaxis)));
+        double tickValue = ((double)maxQuantity / 4) * ((double)i / scaleofXaxis);
+        if ((int)tickValue == tickValue) {
+            sprintf(numStr, "%d", (int)tickValue);
+        } else {
+            sprintf(numStr, "%.2f", tickValue);
+        }
         printf("%s", numStr);
         printf("%s", genWhitespace(15-strlen(numStr)));
     }
@@ -181,35 +192,80 @@ void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int qua
     }
 }
 
+// Function to check if a category name already exists in the list
+int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCategories) {
+    for (int i = 0; i < numCategories; i++) {
+        if (strcmp(name, categories[i]) == 0) {
+            return 1; // Name already exists
+        }
+    }
+    return 0; // Name is unique
+}
+
 void editValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
     chartValues(numCategories, categories, quantities);
     int index;
     int userChoice;
+    char userInput[MAX_NAME_LEN + 1];
+
     printf("\nEnter Index of item to change: ");
-        scanf(" %d", &index);
+    scanf(" %d", &index);
 
-        if (index <= numCategories) {
-            printf("\nEnter 1 to change category %d name or 2 to change category %d quantity: ", index, index);
-            scanf(" %d", &userChoice);
+    if (index <= numCategories) {
+        printf("\nEnter 1 to change category %d name or 2 to change category %d quantity: ", index, index);
+        scanf(" %d", &userChoice);
 
-            if (userChoice == 1) {
-                printf("Enter new name for index %d: ", index);
-                scanf("%s", categories[index - 1]);
+        if (userChoice == 1) {
+            printf("Enter category %d name: ", index);
+            scanf("%s", userInput);
+
+            for (int j = 0; j < numCategories; j++)
+            {
+                if (strcmp(userInput, categories[j]) == 0)
+                {
+                    printf("Category name already exists. Please enter a different name: ");
+                    scanf("%s", userInput);
+                    j = -1;
+                }
             }
-            else if (userChoice == 2) {
-                printf("Enter new quantity for category %d: ", index);
-                scanf("%d", &quantities[index - 1]);
+
+            // check if category name is too long 
+            if (strlen(categories[index]) > MAX_NAME_LEN) {
+                printf("Category name is too long. Please enter a shorter name: ");
+                scanf("%s", userInput);
             }
-            else {
-                printf("\nInput Error. Please enter valid input.");
-                editValues(numCategories, categories, quantities);        
-            }
+            strcpy(categories[index - 1], userInput);
         }
-
+        else if (userChoice == 2) {
+            do {
+                printf("Enter new quantity for category %d: ", index);
+                if (scanf("%d", &quantities[index - 1]) != 1 || quantities[index - 1] <= 0)
+                {
+                    printf("Input error: Please enter a positive integer.\n");
+                    // Clear input buffer
+                    while (getchar() != '\n');
+                    continue; // Continue to prompt for new input
+                }
+                // Check if the new input is a positive integer
+                if (quantities[index - 1] <= 0)
+                {
+                    printf("Input error: Please enter a positive integer.\n");
+                    continue; // Continue to prompt for new input
+                }
+                // Break the loop if input is valid
+                break;
+            } while (1);
+        }
         else {
             printf("\nInput Error. Please enter valid input.");
-            editValues(numCategories, categories, quantities);   
+            editValues(numCategories, categories, quantities);        
         }
+    }
+
+    else {
+        printf("\nInput Error. Please enter valid input.");
+        editValues(numCategories, categories, quantities);   
+    }
 }
 
 void newChart() {
