@@ -29,7 +29,8 @@ int main()
     // get user input
     // get title of bar chart
     printf("Enter the title of the bar chart: ");
-    fgets(title, MAX_TITLE_LEN, stdin);
+    // fgets(title, MAX_TITLE_LEN, stdin);
+    scanf(" %[^\n]", &title);
     title[strcspn(title, "\n")] = '\0'; // Remove trailing newline
 
     // get number of categories
@@ -410,7 +411,7 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
     else
     {
         printf("\nInput Error. Please enter valid input.");
-        editValues(&numCategories, categories, quantities);
+        // editValues(&numCategories, categories, quantities);
     }
 }
 
