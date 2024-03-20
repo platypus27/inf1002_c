@@ -21,12 +21,24 @@ char xAxisLabel[MAX_NAME_LEN + 1];
 char sortChoice;
 int choice, userChoice, numCategories, frontSpacing, scaleofXaxis;
 
+/**
+ * Function to get user choice
+ * Mainly used to remove repeated printf and scanf
+ * @return int
+*/
 int getChoice() {
     int choice;
     printf(MAIN_PRINT);
     scanf(" %d", &choice);
     return choice;
 }
+
+/**
+ * Function to get main user inputs
+ * To be run at start of program
+ * Gets user input for categories, quantities, x-axis label and sorting method
+ * @return int
+*/
 
 int inputs() {
     do {
@@ -85,6 +97,17 @@ int inputs() {
     }
 }
 
+/**
+ * Function to display the bar chart
+ * Essentially creates bar chart
+ * @param char *title
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int quantities[]
+ * @param int numCategories
+ * @param int scaleofXaxis
+ * @param char *xAxisLabel
+ * @return void
+*/
 void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel)
 {
 
@@ -185,6 +208,13 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
     printf("\n");
 }
 
+/**
+ * Function to display the chart values
+ * @param int numCategories
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int quantities[]
+ * @return void
+*/
 void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[])
 {
     printf("\nChart Values\n------------\n");
@@ -194,7 +224,14 @@ void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int qua
     }
 }
 
-// Function to check if a category name already exists in the list
+/**
+ * Function to check if a category name already exists in the list
+ * Used for form validation
+ * @param char name[]
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int numCategories
+ * @return int
+*/
 int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCategories)
 {
     for (int i = 0; i < numCategories; i++)
@@ -207,6 +244,13 @@ int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCat
     return 0; // Name is unique
 }
 
+/**
+ * Function to edit values of the chart
+ * @param int *numCategories
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int quantities[]
+ * @return void
+*/
 void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[])
 {
     chartValues(*numCategories, categories, quantities);
@@ -377,11 +421,26 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
     }
 }
 
+/**
+ * Function to create a new chart
+ * @return void
+*/
 void newChart()
 {
     main();
 }
 
+/**
+ * Function to export the chart to a file
+ * File path can be found in config file
+ * @param char *title
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int quantities[]
+ * @param int numCategories
+ * @param int scaleofXaxis
+ * @param char *xAxisLabel
+ * @return void
+*/
 void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel)
 {
     char filePath;
@@ -497,6 +556,11 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
     printf("%s", SUCCESS_SAVE);
 }
 
+/**
+ * Function to generate whitespace
+ * @param int numSpaces
+ * @return char *
+*/
 char *genWhitespace(int numSpaces)
 {
     char *spaces = malloc(numSpaces + 1); // Allocate memory for the spaces and the null terminator
@@ -508,6 +572,12 @@ char *genWhitespace(int numSpaces)
     return spaces;
 }
 
+/**
+ * Function to align the title of the chart in the center
+ * @param char *title
+ * @param int maxQuantity
+ * @return char *
+*/
 char *alignCenter(char *title, int maxQuantity)
 {
     int spacing = (maxQuantity - strlen(title)) / 2;
@@ -521,6 +591,13 @@ char *alignCenter(char *title, int maxQuantity)
     return alignedTitle;
 }
 
+/**
+ * Function to sort the chart by bar length
+ * @param int quantities[]
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int numCategories
+ * @return void
+*/
 void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories)
 {
     for (int i = 0; i < numCategories - 1; i++)
@@ -542,6 +619,13 @@ void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int 
     }
 }
 
+/**
+ * Function to sort the chart by category name
+ * @param int quantities[]
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int numCategories
+ * @return void
+*/
 void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories)
 {
     for (int i = 0; i < numCategories - 1; i++)
@@ -563,6 +647,11 @@ void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int nu
     }
 }
 
+/**
+ * Function to get the multiplier for the x-axis
+ * @param int n
+ * @return int
+*/
 int multiplier(int n)
 {
     int count = 0;
@@ -581,12 +670,17 @@ int multiplier(int n)
     }
 }
 
+/**
+ * Main function
+ * @return int
+*/
 int main()
 {
     // get user input
     // get title of bar chart
     printf("%s",INPUT_TITLE);
     scanf(" %[^\n]", &title);
+
     title[strcspn(title, "\n")] = '\0'; // Remove trailing newline
     
     inputs();
