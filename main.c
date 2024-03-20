@@ -550,8 +550,7 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
 */
 char *genWhitespace(int numSpaces) {
     char *spaces = malloc(numSpaces + 1); // Allocate memory for the spaces and the null terminator
-    if (spaces != NULL)
-    {
+    if (spaces != NULL) {
         memset(spaces, ' ', numSpaces); // Fill the memory with spaces
         spaces[numSpaces] = '\0';       // Add the null terminator
     }
@@ -647,29 +646,35 @@ int multiplier(int n) {
  * @return int
 */
 int main() {
-    // get user input
     // get title of bar chart
     printf("%s",INPUT_TITLE);
     scanf(" %[^\n]", &title);
 
     title[strcspn(title, "\n")] = '\0'; // Remove trailing newline
     
+    // get all basic inputs
     inputs();
 
+    // display graph
     displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
 
+    // get choice after generating first chart
     choice = getChoice();
     while (choice >= 1 && choice <= 4) {
         switch (choice) {
+            // display chart
             case 1:
                 displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
                 break;
+            // edit values in chart
             case 2:
                 editValues(&numCategories, categories, quantities);
                 break;
+            // generate new chart
             case 3:
                 main();
                 break;
+            // export chart to file
             case 4:
                 exportChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
                 break;
