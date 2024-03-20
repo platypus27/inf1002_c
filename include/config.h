@@ -1,5 +1,5 @@
 /**
- * Main program of Bar Chart Generator for INF1002 C Project
+ * Main Config file for the program
  * @version 1.0
  * @author Ng Ao Yu 2303697
  * @author Jay Lim Jun Han 2303699
@@ -46,4 +46,4 @@
 #define SUCCESS_SAVE "Chart saved to file.\n"
 
 //configurations
-#define FILE_PATH "graph.txt"
+#define FILE_PATH "generated/graph.txt"
