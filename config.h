@@ -39,8 +39,8 @@
 #define FILE_ERROR "Error opening file for writing.\n"
 #define INVALID_RANGE "Input error. Please enter a valid integer between 1 and "
 
-//configurations
-#define FILE_PATH "graph.txt"
-
 //success msgs
 #define SUCCESS_SAVE "Chart saved to file.\n"
+
+//configurations
+#define FILE_PATH "graph.txt"
