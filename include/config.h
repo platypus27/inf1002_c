@@ -7,6 +7,7 @@
  * @author Lee Cheng Kae 2303702
 */
 
+#ifndef CONFIG_H
 #define CONFIG_H
 
 //constants
@@ -47,3 +48,5 @@
 
 //configurations
 #define FILE_PATH "generated/graph.txt"
+
+#endif

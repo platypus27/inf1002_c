@@ -7,7 +7,7 @@
  * @author Lee Cheng Kae 2303702
 */
 
-
+#ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,3 +44,5 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
 int getSortMethod();
 void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);
 void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);
+
+#endif

@@ -7,6 +7,7 @@
  * @author Lee Cheng Kae 2303702
 */
 
+#ifndef ALIGNMENT_C
 #define ALIGNMENT_C
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,3 +64,5 @@ int multiplier(int n) {
         return pow(10, count - 2);
     }
 }
+
+#endif

@@ -7,6 +7,7 @@
  * @author Lee Cheng Kae 2303702
 */
 
+#ifndef SORT_C
 #define SORT_C
 #include <stdio.h>
 #include <stdlib.h>
@@ -80,3 +81,5 @@ void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int nu
         }
     }
 }
+
+#endif

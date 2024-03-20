@@ -7,6 +7,7 @@
  * @author Lee Cheng Kae 2303702
 */
 
+#ifndef ERROR_HANDLING_C
 #define ERROR_HANDLING_C
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,3 +58,5 @@ int checkLength(int i) {
         } while (quantities[i] <= 0);
     }
 }
+
+#endif

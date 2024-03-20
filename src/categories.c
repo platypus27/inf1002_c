@@ -7,6 +7,7 @@
  * @author Lee Cheng Kae 2303702
 */
 
+#ifndef CATEGORIES_C
 #define CATEGORIES_C
 #include <stdio.h>
 #include <stdlib.h>
@@ -50,3 +51,5 @@ int getCategories() {
         checkLength(i);
     }
 }
+
+#endif

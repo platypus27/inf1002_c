@@ -7,6 +7,7 @@
  * @author Lee Cheng Kae 2303702
 */
 
+#ifndef CHARTGEN_C
 #define CHARTGEN_C
 #include <stdio.h>
 #include <stdlib.h>
@@ -141,3 +142,5 @@ void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int qua
         printf("%d. %s %d\n", i + 1, categories[i], quantities[i]);
     }
 }
+
+#endif

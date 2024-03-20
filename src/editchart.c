@@ -7,6 +7,7 @@
  * @author Lee Cheng Kae 2303702
 */
 
+#ifndef EDITCHART_C
 #define EDITCHART_C
 #include <stdio.h>
 #include <stdlib.h>
@@ -192,3 +193,5 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
         // editValues(&numCategories, categories, quantities);
     }
 }
+
+#endif
