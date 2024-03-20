@@ -48,7 +48,6 @@ int getChoice() {
  * Gets user input for categories, quantities, x-axis label and sorting method
  * @return int
 */
-
 int inputs() {
     do {
         printf("%s",INPUT_NUMCAT);
@@ -117,8 +116,7 @@ int inputs() {
  * @param char *xAxisLabel
  * @return void
 */
-void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel)
-{
+void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel) {
 
     int maxQuantity = 0;
     int frontSpacing = 0;
@@ -224,11 +222,9 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
  * @param int quantities[]
  * @return void
 */
-void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[])
-{
-    printf("\nChart Values\n------------\n");
-    for (int i = 0; i < numCategories; i++)
-    {
+void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
+    printf("%s",PRINT_CHART);
+    for (int i = 0; i < numCategories; i++) {
         printf("%d. %s %d\n", i + 1, categories[i], quantities[i]);
     }
 }
@@ -241,12 +237,9 @@ void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int qua
  * @param int numCategories
  * @return int
 */
-int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCategories)
-{
-    for (int i = 0; i < numCategories; i++)
-    {
-        if (strcmp(name, categories[i]) == 0)
-        {
+int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCategories) {
+    for (int i = 0; i < numCategories; i++) {
+        if (strcmp(name, categories[i]) == 0) {
             return 1; // Name already exists
         }
     }
@@ -260,8 +253,7 @@ int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCat
  * @param int quantities[]
  * @return void
 */
-void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[])
-{
+void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
     chartValues(*numCategories, categories, quantities);
     int index;
     int userChoice;
@@ -431,15 +423,6 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
 }
 
 /**
- * Function to create a new chart
- * @return void
-*/
-void newChart()
-{
-    main();
-}
-
-/**
  * Function to export the chart to a file
  * File path can be found in config file
  * @param char *title
@@ -450,8 +433,7 @@ void newChart()
  * @param char *xAxisLabel
  * @return void
 */
-void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel)
-{
+void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel) {
     char filePath;
     // printf("\nEnter file path to save to: ");
     // scanf("%d", &filePath);
@@ -459,8 +441,7 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
 
     // Open a file for writing
     FILE *file = fopen(FILE_PATH, "a");
-    if (file == NULL)
-    {
+    if (file == NULL) {
         printf("%s",FILE_ERROR);
     }
 
@@ -468,16 +449,13 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
     int maxQuantity = 0;
     int frontSpacing = 0;
 
-    for (int i = 0; i < numCategories; i++)
-    {
+    for (int i = 0; i < numCategories; i++) {
         // Find maximum quantity for scaling
-        if (quantities[i] > maxQuantity)
-        {
+        if (quantities[i] > maxQuantity) {
             maxQuantity = quantities[i];
         }
         // Get largest length of front spacing
-        if (strlen(categories[i]) > frontSpacing)
-        {
+        if (strlen(categories[i]) > frontSpacing) {
             frontSpacing = strlen(categories[i]);
         }
     }
@@ -570,8 +548,7 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
  * @param int numSpaces
  * @return char *
 */
-char *genWhitespace(int numSpaces)
-{
+char *genWhitespace(int numSpaces) {
     char *spaces = malloc(numSpaces + 1); // Allocate memory for the spaces and the null terminator
     if (spaces != NULL)
     {
@@ -587,12 +564,10 @@ char *genWhitespace(int numSpaces)
  * @param int maxQuantity
  * @return char *
 */
-char *alignCenter(char *title, int maxQuantity)
-{
+char *alignCenter(char *title, int maxQuantity) {
     int spacing = (maxQuantity - strlen(title)) / 2;
     char *alignedTitle = malloc(strlen(title) + spacing + 1);
-    for (int count = 0; count < spacing; count++)
-    {
+    for (int count = 0; count < spacing; count++) {
         alignedTitle[count] = ' ';
     }
 
@@ -607,14 +582,10 @@ char *alignCenter(char *title, int maxQuantity)
  * @param int numCategories
  * @return void
 */
-void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories)
-{
-    for (int i = 0; i < numCategories - 1; i++)
-    {
-        for (int j = 0; j < numCategories - i - 1; j++)
-        {
-            if (quantities[j] > quantities[j + 1])
-            {
+void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories) {
+    for (int i = 0; i < numCategories - 1; i++) {
+        for (int j = 0; j < numCategories - i - 1; j++) {
+            if (quantities[j] > quantities[j + 1]) {
                 int temp_quantity = quantities[j];
                 quantities[j] = quantities[j + 1];
                 quantities[j + 1] = temp_quantity;
@@ -635,14 +606,10 @@ void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int 
  * @param int numCategories
  * @return void
 */
-void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories)
-{
-    for (int i = 0; i < numCategories - 1; i++)
-    {
-        for (int j = 0; j < numCategories - i - 1; j++)
-        {
-            if (strcmp(categories[j], categories[j + 1]) > 0)
-            {
+void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories) {
+    for (int i = 0; i < numCategories - 1; i++) {
+        for (int j = 0; j < numCategories - i - 1; j++) {
+            if (strcmp(categories[j], categories[j + 1]) > 0) {
                 int temp_quantity = quantities[j];
                 quantities[j] = quantities[j + 1];
                 quantities[j + 1] = temp_quantity;
@@ -661,20 +628,16 @@ void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int nu
  * @param int n
  * @return int
 */
-int multiplier(int n)
-{
+int multiplier(int n) {
     int count = 0;
-    while (n != 0)
-    {
+    while (n != 0) {
         n /= 10;
         ++count;
     }
-    if (pow(10, count - 2) < 1)
-    {
+    if (pow(10, count - 2) < 1) {
         return 1;
     }
-    else
-    {
+    else {
         return pow(10, count - 2);
     }
 }
@@ -683,8 +646,7 @@ int multiplier(int n)
  * Main function
  * @return int
 */
-int main()
-{
+int main() {
     // get user input
     // get title of bar chart
     printf("%s",INPUT_TITLE);
@@ -706,7 +668,7 @@ int main()
                 editValues(&numCategories, categories, quantities);
                 break;
             case 3:
-                newChart();
+                main();
                 break;
             case 4:
                 exportChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);

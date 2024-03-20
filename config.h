@@ -14,7 +14,7 @@
 #define MAX_TITLE_LEN 150
 #define MAX_NAME_LEN 15
 
-//main 
+//main prompts
 #define INPUT_TITLE "Enter title of bar chart: "
 #define INPUT_NUMCAT "Enter number of categories: "
 #define INPUT_CATNAME "Enter category name: "
@@ -29,6 +29,9 @@
 #define ENTER_CATQUANTITY "Enter category quantity: "
 #define ENTER_CATREMOVE "\nEnter Index of item to remove: "
 #define ENTER_CATINDEX "\nEnter Index of item to edit: "
+
+//messages
+#define PRINT_CHART "\nChart Values\n------------\n"
 
 //error messages
 #define CATNAME_EXISTS "Category name already exists. Please enter a different name: "
