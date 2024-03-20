@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "include/config.h"
-#include "src/functions.h"
+#include "include/functions.h"
 
 char title[MAX_TITLE_LEN + 1];
 char categories[MAX_CATEGORIES][MAX_NAME_LEN + 1];

@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../include/config.h"
-#include "functions.h"
+#include "../include/functions.h"
 
 /**
  * Function to generate whitespace

@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/config.h"
-#include "functions.h"
+#include "../include/functions.h"
 
 extern char title[MAX_TITLE_LEN + 1];
 extern int numCategories;

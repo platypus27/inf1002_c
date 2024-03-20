@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/config.h"
-#include "functions.h"
+#include "../include/functions.h"
 
 extern int numCategories;
 extern char categories[MAX_CATEGORIES][MAX_NAME_LEN + 1];

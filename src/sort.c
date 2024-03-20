@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/config.h"
-#include "functions.h"
+#include "../include/functions.h"
 
 extern char sortChoice;
 extern int quantities[MAX_CATEGORIES];
