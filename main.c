@@ -594,18 +594,22 @@ int main()
     displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
 
     choice = getChoice();
-    while (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+    while (choice >= 1 && choice <= 4) {
         switch (choice) {
             case 1:
                 displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
+                break;
             case 2:
                 editValues(&numCategories, categories, quantities);
+                break;
             case 3:
                 newChart();
+                break;
             case 4:
                 exportChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
+                break;
         }
-        getChoice();
+        choice = getChoice();
     }
     return 0;
 }
