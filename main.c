@@ -4,10 +4,6 @@
 #include <math.h>
 #include "config.h"
 
-#define MAX_CATEGORIES 12
-#define MAX_TITLE_LEN 150
-#define MAX_NAME_LEN 15
-
 char *genWhitespace(int numSpaces);
 char *alignCenter(char *title, int maxQuantity);
 void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);

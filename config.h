@@ -1,5 +1,10 @@
 #define CONFIG_H
 
+//constants
+#define MAX_CATEGORIES 12
+#define MAX_TITLE_LEN 150
+#define MAX_NAME_LEN 15
+
 //main 
 #define INPUT_TITLE "Enter title of bar chart: "
 #define INPUT_NUMCAT "Enter number of categories: "
