@@ -9,8 +9,13 @@
 
 #define EDITCHART_C
 #include <stdio.h>
+#include <stdlib.h>
 #include "../include/config.h"
 #include "functions.h"
+
+extern char categories[MAX_CATEGORIES][MAX_NAME_LEN + 1];
+extern int quantities[MAX_CATEGORIES];
+
 
 /**
  * Function to edit values of the chart

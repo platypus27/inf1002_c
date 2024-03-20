@@ -9,6 +9,7 @@
 
 #define CATEGORIES_C
 #include <stdio.h>
+#include <stdlib.h>
 #include "../include/config.h"
 #include "functions.h"
 
