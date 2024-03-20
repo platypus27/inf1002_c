@@ -26,7 +26,7 @@ int getCategories() {
     do {
         printf("%s",INPUT_NUMCAT);
         if (scanf("%d", &numCategories) != 1 || numCategories < 1 || numCategories > MAX_CATEGORIES) {
-            printf("%s ", INVALID_RANGE " %d.\n", MAX_CATEGORIES);
+            printf("%s%d.\n",INVALID_RANGE, MAX_CATEGORIES);
             // Clear the input buffer
             while (getchar() != '\n')
                 ;
@@ -46,18 +46,6 @@ int getCategories() {
             }
         }
         // check if category name is too long
-        if (strlen(categories[i]) > MAX_NAME_LEN) { 
-            printf("%s",CATNAME_LONG);
-            scanf("%s", categories[i]);
-        }
-        do {
-            printf("Enter quantity for %s: ", categories[i]);
-            if (scanf("%d", &quantities[i]) != 1 || quantities[i] <= 0){
-                printf(INVALID_NEGATIVE);
-                // Clear input buffer
-                while (getchar() != '\n')
-                    ;
-            }
-        } while (quantities[i] <= 0);
+        checkLength(i);
     }
 }
