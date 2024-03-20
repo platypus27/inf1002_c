@@ -1,3 +1,12 @@
+/**
+ * Main program of Bar Chart Generator for INF1002 C Project
+ * @version 1.0
+ * @author Ng Ao Yu 2303697
+ * @author Jay Lim Jun Han 2303699
+ * @author Yeo Hiong Kai 2303688
+ * @author Lee Cheng Kae 2303702
+*/
+
 #define CONFIG_H
 
 //constants
