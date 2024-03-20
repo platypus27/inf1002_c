@@ -1,1 +1,3 @@
-# inf1002-c
+# INF1002_C
+
+C Project for INF1002
