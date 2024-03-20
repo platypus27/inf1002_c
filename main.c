@@ -43,23 +43,35 @@ int getChoice() {
 }
 
 /**
- * Function to get main user inputs
- * To be run at start of program
- * Gets user input for categories, quantities, x-axis label and sorting method
+ * Function to get sorting method
  * @return int
 */
-int inputs() {
+int getSortMethod() {
+    // sorting method
+    printf("%s", INPUT_SORT);
+    scanf(" %c", &sortChoice);
+    if (sortChoice == 'a') {
+        sortByCatName(quantities, categories, numCategories);
+    } else if (sortChoice == 'b') {
+        sortByBarLength(quantities, categories, numCategories);
+    }
+}
+
+/**
+ * Function to get categories
+ * Gets user input for categories and quantities
+ * @return int
+*/
+int getCategories() {
     do {
         printf("%s",INPUT_NUMCAT);
-        if (scanf("%d", &numCategories) != 1 || numCategories < 1 || numCategories > MAX_CATEGORIES)
-        {
-            printf("Input error. Please enter a valid integer between 1 and %d.\n", MAX_CATEGORIES);
+        if (scanf("%d", &numCategories) != 1 || numCategories < 1 || numCategories > MAX_CATEGORIES) {
+            printf("%s ", INVALID_RANGE " %d.\n", MAX_CATEGORIES);
             // Clear the input buffer
             while (getchar() != '\n')
                 ;
         }
     } while (numCategories < 1 || numCategories > MAX_CATEGORIES);
-
     for (int i = 0; i < numCategories; i++)
     {
         printf("Enter category %d name: ", i + 1);
@@ -80,8 +92,7 @@ int inputs() {
         }
         do {
             printf("Enter quantity for %s: ", categories[i]);
-            if (scanf("%d", &quantities[i]) != 1 || quantities[i] <= 0)
-            {
+            if (scanf("%d", &quantities[i]) != 1 || quantities[i] <= 0){
                 printf(INVALID_NEGATIVE);
                 // Clear input buffer
                 while (getchar() != '\n')
@@ -89,20 +100,25 @@ int inputs() {
             }
         } while (quantities[i] <= 0);
     }
+}
 
-    // get number of categories
+/**
+ * Function to get main user inputs
+ * To be run at start of program
+ * Gets user input for categories, quantities, x-axis label and sorting method
+ * @return int
+*/
+int inputs() {
+    
+    // get categories
+    getCategories();
+
+    // x-axis label
     printf("%s", INPUT_LABELX);
     scanf(" %s", xAxisLabel); // Space to consume newline
 
-    // sorting method
-    printf("%s", INPUT_SORT);
-    scanf(" %c", &sortChoice);
-    if (sortChoice == 'a')
-    {
-        sortByCatName(quantities, categories, numCategories);
-    } else if (sortChoice == 'b') {
-        sortByBarLength(quantities, categories, numCategories);
-    }
+    // get sorting method
+    getSortMethod();
 }
 
 /**
@@ -344,7 +360,7 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
         if (*numCategories != MAX_CATEGORIES)
         {
 
-            printf("%s",ENTER_CATNAME);
+            printf("\n%s",ENTER_CATNAME);
             scanf("%s", userInput);
 
             for (int j = 0; j < *numCategories; j++)
@@ -400,7 +416,7 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
             scanf("%d", &index);
             if (index <= 0 || index > *numCategories)
             {
-                printf("Input error: Please enter a valid index.\n");
+                printf("%s\n",INVALID_INPUT);
                 // Clear input buffer
                 while (getchar() != '\n')
                     ;
