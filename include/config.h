@@ -14,6 +14,9 @@
 #define MAX_CATEGORIES 12
 #define MAX_TITLE_LEN 150
 #define MAX_NAME_LEN 15
+#define SPACING_LEN 60
+#define SPACING_MULTIPLIER 4
+#define SPACING 15
 
 //main prompts
 #define INPUT_TITLE "Enter title of bar chart: "

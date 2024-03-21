@@ -27,38 +27,83 @@ extern int quantities[MAX_CATEGORIES];
 */
 void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
     chartValues(*numCategories, categories, quantities);
-    int index;
-    int userChoice;
+    int index, userChoice;
     char userInput[MAX_NAME_LEN + 1];
 
     printf("%s",EDIT_VALUES);
     scanf(" %d", &userChoice);
 
     chartValues(*numCategories, categories, quantities);
-    if (userChoice == 1)
-    {
-        do
-        {
-            printf("%s",ENTER_CATINDEX);
-            scanf("%d", &index);
-            if (index <= 0 || index > *numCategories)
-            {
-                printf("%s",INVALID_INPUT);
-                // Clear input buffer
-                while (getchar() != '\n')
-                    ;
-                continue; // Continue to prompt for new input
-            }
+    switch (userChoice) {
+        case 1:
+            changeCatName(index, numCategories, userInput);
             break;
-        } while (1);
+        case 2:
+            changeCatQuant(index, numCategories, userInput);
+            break;
+        case 3:
+            addCategory(index, numCategories, userInput);
+            break;
+        case 4:
+            deleteCategory(index, numCategories, userInput);
+            break;
+        default:
+            printf("%s",INVALID_INPUT);
+            // editValues(&numCategories, categories, quantities);
+    }
+}
 
-        printf("%s",ENTER_CATNAME);
+int changeCatName(int index, char *numCategories, int userInput) {
+    getCatIndex(index, numCategories);
+
+    printf("%s",ENTER_CATNAME);
+    scanf("%s", userInput);
+
+    for (int j = 0; j < *numCategories; j++) {
+        if (strcmp(userInput, categories[j]) == 0) {
+            printf("%s",CATNAME_EXISTS);
+            scanf("%s", userInput);
+            j = -1;
+        }
+    }
+
+    // check if category name is too long
+    if (strlen(categories[index]) > MAX_NAME_LEN) {
+        printf("%s",CATNAME_LONG);
+        scanf("%s", userInput);
+    }
+    strcpy(categories[index - 1], userInput);
+}
+
+int changeCatQuant(int index, char *numCategories, int userInput){
+    getCatIndex(index, numCategories);
+
+    do {
+        printf("%s",ENTER_CATQUANTITY);
+        if (scanf("%d", &quantities[index - 1]) != 1 || quantities[index - 1] <= 0) {
+            printf("%s",INVALID_NEGATIVE);
+            // Clear input buffer
+            while (getchar() != '\n')
+                ;
+            continue; // Continue to prompt for new input
+        }
+        // Check if the new input is a positive integer
+        if (quantities[index - 1] <= 0) {
+            printf("%s",INVALID_NEGATIVE);
+            continue; // Continue to prompt for new input
+        }
+        // Break the loop if input is valid
+        break;
+    } while (1);
+}
+
+int addCategory(int index, char *numCategories, int userInput){
+    if (*numCategories != MAX_CATEGORIES) {
+        printf("\n%s",ENTER_CATNAME);
         scanf("%s", userInput);
 
-        for (int j = 0; j < *numCategories; j++)
-        {
-            if (strcmp(userInput, categories[j]) == 0)
-            {
+        for (int j = 0; j < *numCategories; j++) {
+            if (strcmp(userInput, categories[j]) == 0) {
                 printf("%s",CATNAME_EXISTS);
                 scanf("%s", userInput);
                 j = -1;
@@ -66,35 +111,15 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
         }
 
         // check if category name is too long
-        if (strlen(categories[index]) > MAX_NAME_LEN)
-        {
+        if (strlen(userInput) > MAX_NAME_LEN) {
             printf("%s",CATNAME_LONG);
             scanf("%s", userInput);
         }
-        strcpy(categories[index - 1], userInput);
-    }
-    else if (userChoice == 2)
-    {
-        do
-        {
-            printf("%s",ENTER_CATINDEX);
-            scanf("%d", &index);
-            if (index <= 0 || index > *numCategories)
-            {
-                printf("%s",INVALID_INPUT);
-                // Clear input buffer
-                while (getchar() != '\n')
-                    ;
-                continue; // Continue to prompt for new input
-            }
-            break;
-        } while (1);
+        strcpy(categories[*numCategories], userInput);
 
-        do
-        {
+        do {
             printf("%s",ENTER_CATQUANTITY);
-            if (scanf("%d", &quantities[index - 1]) != 1 || quantities[index - 1] <= 0)
-            {
+            if (scanf("%d", &quantities[*numCategories]) != 1 || quantities[*numCategories] <= 0) {
                 printf("%s",INVALID_NEGATIVE);
                 // Clear input buffer
                 while (getchar() != '\n')
@@ -102,96 +127,53 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
                 continue; // Continue to prompt for new input
             }
             // Check if the new input is a positive integer
-            if (quantities[index - 1] <= 0)
-            {
+            if (quantities[*numCategories] <= 0) {
                 printf("%s",INVALID_NEGATIVE);
                 continue; // Continue to prompt for new input
             }
             // Break the loop if input is valid
             break;
         } while (1);
+        (*numCategories)++;
     }
-    else if (userChoice == 3)
-    {
-        if (*numCategories != MAX_CATEGORIES)
-        {
+    else {
+        printf("%s",INVLAID_MAX);
+    }
+}
 
-            printf("\n%s",ENTER_CATNAME);
-            scanf("%s", userInput);
-
-            for (int j = 0; j < *numCategories; j++)
-            {
-                if (strcmp(userInput, categories[j]) == 0)
-                {
-                    printf("%s",CATNAME_EXISTS);
-                    scanf("%s", userInput);
-                    j = -1;
-                }
-            }
-
-            // check if category name is too long
-            if (strlen(userInput) > MAX_NAME_LEN)
-            {
-                printf("%s",CATNAME_LONG);
-                scanf("%s", userInput);
-            }
-            strcpy(categories[*numCategories], userInput);
-
-            do
-            {
-                printf("%s",ENTER_CATQUANTITY);
-                if (scanf("%d", &quantities[*numCategories]) != 1 || quantities[*numCategories] <= 0)
-                {
-                    printf("%s",INVALID_NEGATIVE);
-                    // Clear input buffer
-                    while (getchar() != '\n')
-                        ;
-                    continue; // Continue to prompt for new input
-                }
-                // Check if the new input is a positive integer
-                if (quantities[*numCategories] <= 0)
-                {
-                    printf("%s",INVALID_NEGATIVE);
-                    continue; // Continue to prompt for new input
-                }
-                // Break the loop if input is valid
-                break;
-            } while (1);
-            (*numCategories)++;
+int deleteCategory(int index, char *numCategories, int userInput){
+    do {
+        printf("%s",ENTER_CATREMOVE);
+        scanf("%d", &index);
+        if (index <= 0 || index > *numCategories) {
+            printf("%s\n",INVALID_INPUT);
+            // Clear input buffer
+            while (getchar() != '\n')
+                ;
+            continue; // Continue to prompt for new input
         }
-        else
-        {
-            printf("%s",INVLAID_MAX);
+        break;
+    } while (1);
+    (*numCategories)--;
+    for (int count = index - 1; count < *numCategories; count++) {
+        quantities[count] = quantities[count + 1];
+        strcpy(categories[count], categories[count + 1]);
+    }
+}
+
+int getCatIndex(int index, char *numCategories) {
+    do {
+        printf("%s",ENTER_CATINDEX);
+        scanf("%d", &index);
+        if (index <= 0 || index > *numCategories) {
+            printf("%s",INVALID_INPUT);
+            // Clear input buffer
+            while (getchar() != '\n')
+                ;
+            continue; // Continue to prompt for new input
         }
-    }
-    else if (userChoice == 4)
-    {
-        do
-        {
-            printf("%s",ENTER_CATREMOVE);
-            scanf("%d", &index);
-            if (index <= 0 || index > *numCategories)
-            {
-                printf("%s\n",INVALID_INPUT);
-                // Clear input buffer
-                while (getchar() != '\n')
-                    ;
-                continue; // Continue to prompt for new input
-            }
-            break;
-        } while (1);
-        (*numCategories)--;
-        for (int count = index - 1; count < *numCategories; count++)
-        {
-            quantities[count] = quantities[count + 1];
-            strcpy(categories[count], categories[count + 1]);
-        }
-    }
-    else
-    {
-        printf("%s",INVALID_INPUT);
-        // editValues(&numCategories, categories, quantities);
-    }
+        break;
+    } while (1);
 }
 
 #endif

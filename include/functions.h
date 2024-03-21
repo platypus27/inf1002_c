@@ -32,6 +32,11 @@ void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int qua
 
 //editchart.c
 void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]);
+int changeCatName(int index, char *numCategories, int userInput);
+int changeCatQuant(int index, char *numCategories, int userInput);
+int addCategory(int index, char *numCategories, int userInput);
+int removeCategory(int index, char *numCategories, int userInput);
+int getCatIndex(int index, char *numCategories);
 
 //error_handling.c
 int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCategories);

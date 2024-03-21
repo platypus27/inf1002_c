@@ -35,16 +35,13 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
     int maxQuantity = 0;
     int frontSpacing = 0;
 
-    for (int i = 0; i < numCategories; i++)
-    {
+    for (int i = 0; i < numCategories; i++) {
         // Find maximum quantity for scaling
-        if (quantities[i] > maxQuantity)
-        {
+        if (quantities[i] > maxQuantity) {
             maxQuantity = quantities[i];
         }
         // Get largest length of front spacing
-        if (strlen(categories[i]) > frontSpacing)
-        {
+        if (strlen(categories[i]) > frontSpacing) {
             frontSpacing = strlen(categories[i]);
         }
     }
@@ -53,11 +50,9 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
 
     // Find maximum scaled quantity for x-axis scaling
     int maxScaledQty = 0;
-    for (int i = 0; i < numCategories; i++)
-    {
+    for (int i = 0; i < numCategories; i++) {
         int scaledQty = (quantities[i] * 60) / maxQuantity;
-        if (scaledQty > maxScaledQty)
-        {
+        if (scaledQty > maxScaledQty) {
             maxScaledQty = scaledQty;
         }
     }
@@ -65,68 +60,53 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
     // Print the bar chart
     title = alignCenter(title, maxScaledQty + frontSpacing);
     printf("\n%s\n", title);
-    for (int i = 0; i < numCategories; i++)
-    {
+    for (int i = 0; i < numCategories; i++) {
         int additionalSpacing = frontSpacing - strlen(categories[i]);
         printf("%s|\n", genWhitespace(frontSpacing)); // Adjust spacing as needed
-        if (additionalSpacing > 0)
-        {
+        if (additionalSpacing > 0) {
             printf("%s%s|", genWhitespace(additionalSpacing), categories[i]);
         }
-        else
-        {
+        else {
             printf("%s|", categories[i]);
         }
-        int scaledQty = (quantities[i] * 60) / maxQuantity; // Adjust scaling as needed
-        for (int j = 0; j < scaledQty; j++)
-        {
+        int scaledQty = (quantities[i] * SPACING_LEN) / maxQuantity; // Adjust scaling as needed
+        for (int j = 0; j < scaledQty; j++) {
             printf("\u2587");
         }
         printf(" %d \n", quantities[i]);
     }
 
     // Print tick marks and labels
-    int numTickMarks = (maxScaledQty / 15) + 1; // Roughly one tick every 10 units
+    int numTickMarks = (maxScaledQty / SPACING) + 1; // Roughly one tick every 10 units
     int tickSpacing = maxScaledQty / (numTickMarks - 1);
 
     // Print x-axis
     printf("%s+", genWhitespace(frontSpacing));
-    for (int i = 0; i < maxScaledQty; i++)
-    {
-        if ((i + 1) % tickSpacing == 0)
-        {
+    for (int i = 0; i < maxScaledQty; i++) {
+        if ((i + 1) % tickSpacing == 0) {
             printf("+");
         }
-        else
-        {
+        else {
             printf("-");
         }
     }
-    printf("\n");
-
-    printf("%s", genWhitespace(frontSpacing));
+    printf("\n%s", genWhitespace(frontSpacing));
     char numStr[5];
-    for (int i = 0; i <= 4; i++)
-    {
+    for (int i = 0; i <= 4; i++) {
         // formatNum((((double)maxQuantity / 4) * (i / scaleofXaxis)));
         double tickValue = ((double)maxQuantity / 4) * ((double)i / scaleofXaxis);
-        if ((int)tickValue == tickValue)
-        {
+        if ((int)tickValue == tickValue) {
             sprintf(numStr, "%d", (int)tickValue);
         }
-        else
-        {
+        else {
             sprintf(numStr, "%.2f", tickValue);
         }
-        printf("%s", numStr);
-        printf("%s", genWhitespace(15 - strlen(numStr)));
+        printf("%s%s", numStr, genWhitespace(SPACING - strlen(numStr)));
     }
 
     // print x-axis label
     xAxisLabel = alignCenter(xAxisLabel, maxScaledQty + frontSpacing);
-    printf("\n%s(x%d)", xAxisLabel, scaleofXaxis);
-    printf("\n");
-    printf("\n");
+    printf("\n%s(x%d)\n\n", xAxisLabel, scaleofXaxis);
 }
 
 /**
