@@ -14,6 +14,73 @@
 #include "../include/config.h"
 #include "../include/functions.h"
 
+int tickSpacing;
+
+/**
+ * Function to generate x-axis
+ * @param int maxQuantity
+ * @param int scaleofXaxis
+ * @param int maxScaledQty
+ * @param int frontSpacing
+ * @param int tickSpacing
+ * @param FILE *file
+ * @return int
+*/
+int generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpacing, int tickSpacing, FILE *file) {
+    // Print x-axis
+    fprintf(file, "%s+", genWhitespace(frontSpacing));
+    for (int i = 0; i < maxScaledQty; i++) {
+        if ((i + 1) % tickSpacing == 0) {
+            fprintf(file, "+");
+        }
+        else {
+            fprintf(file, "-");
+        }
+    }
+    fprintf(file, "\n");
+
+    fprintf(file, "%s", genWhitespace(frontSpacing));
+    char numStr[5];
+    for (int i = 0; i <= 4; i++) {
+        // formatNum((((double)maxQuantity / 4) * (i / scaleofXaxis)));
+        double tickValue = ((double)maxQuantity / 4) * ((double)i / scaleofXaxis);
+        if ((int)tickValue == tickValue) {
+            sprintf(numStr, "%d", (int)tickValue);
+        }
+        else {
+            sprintf(numStr, "%.2f", tickValue);
+        }
+        fprintf(file, "%s", numStr);
+        fprintf(file, "%s", genWhitespace(15 - strlen(numStr)));
+    }
+
+
+}
+
+int generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file){
+    // Print the bar chart
+    title = alignCenter(title, maxScaledQty + frontSpacing);
+    fprintf(file, "\n%s\n", title);
+    for (int i = 0; i < numCategories; i++) {
+        int additionalSpacing = frontSpacing - strlen(categories[i]);
+        fprintf(file, "%s|\n", genWhitespace(frontSpacing)); // Adjust spacing as needed
+        if (additionalSpacing > 0) {
+            fprintf(file, "%s%s|", genWhitespace(additionalSpacing), categories[i]);
+        }
+        else {
+            fprintf(file, "%s|", categories[i]);
+        }
+        int scaledQty = (quantities[i] * 60) / maxQuantity; // Adjust scaling as needed
+        for (int j = 0; j < scaledQty; j++) {
+            fprintf(file, "\u2588");
+        }
+        fprintf(file, " %d \n", quantities[i]);
+    }
+    // Print tick marks and labels
+    int numTickMarks = (maxScaledQty / 15) + 1; // Roughly one tick every 10 units
+    tickSpacing = maxScaledQty / (numTickMarks - 1);
+}
+
 /**
  * Function to export the chart to a file
  * File path can be found in config file
@@ -65,65 +132,9 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
         }
     }
 
-    // Print the bar chart
-    title = alignCenter(title, maxScaledQty + frontSpacing);
-    fprintf(file, "\n%s\n", title);
-    for (int i = 0; i < numCategories; i++)
-    {
-        int additionalSpacing = frontSpacing - strlen(categories[i]);
-        fprintf(file, "%s|\n", genWhitespace(frontSpacing)); // Adjust spacing as needed
-        if (additionalSpacing > 0)
-        {
-            fprintf(file, "%s%s|", genWhitespace(additionalSpacing), categories[i]);
-        }
-        else
-        {
-            fprintf(file, "%s|", categories[i]);
-        }
-        int scaledQty = (quantities[i] * 60) / maxQuantity; // Adjust scaling as needed
-        for (int j = 0; j < scaledQty; j++)
-        {
-            fprintf(file, "\u2588");
-        }
-        fprintf(file, " %d \n", quantities[i]);
-    }
 
-    // Print tick marks and labels
-    int numTickMarks = (maxScaledQty / 15) + 1; // Roughly one tick every 10 units
-    int tickSpacing = maxScaledQty / (numTickMarks - 1);
-
-    // Print x-axis
-    fprintf(file, "%s+", genWhitespace(frontSpacing));
-    for (int i = 0; i < maxScaledQty; i++)
-    {
-        if ((i + 1) % tickSpacing == 0)
-        {
-            fprintf(file, "+");
-        }
-        else
-        {
-            fprintf(file, "-");
-        }
-    }
-    fprintf(file, "\n");
-
-    fprintf(file, "%s", genWhitespace(frontSpacing));
-    char numStr[5];
-    for (int i = 0; i <= 4; i++)
-    {
-        // formatNum((((double)maxQuantity / 4) * (i / scaleofXaxis)));
-        double tickValue = ((double)maxQuantity / 4) * ((double)i / scaleofXaxis);
-        if ((int)tickValue == tickValue)
-        {
-            sprintf(numStr, "%d", (int)tickValue);
-        }
-        else
-        {
-            sprintf(numStr, "%.2f", tickValue);
-        }
-        fprintf(file, "%s", numStr);
-        fprintf(file, "%s", genWhitespace(15 - strlen(numStr)));
-    }
+    generateChart(title, categories, quantities, numCategories, maxQuantity, maxScaledQty, frontSpacing, file);
+    generateX(maxQuantity, scaleofXaxis, maxScaledQty, frontSpacing, tickSpacing, file);
 
     // print x-axis label
     xAxisLabel = alignCenter(xAxisLabel, maxScaledQty + frontSpacing);

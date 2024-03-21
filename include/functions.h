@@ -43,6 +43,8 @@ int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCat
 int checkLength(int i);
 
 //export.c
+int generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpacing, int tickSpacing, FILE *file);
+int generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file);
 void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
 
 //sort.c
