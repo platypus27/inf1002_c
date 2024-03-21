@@ -17,42 +17,14 @@
 extern char categories[MAX_CATEGORIES][MAX_NAME_LEN + 1];
 extern int quantities[MAX_CATEGORIES];
 
-
 /**
- * Function to edit values of the chart
- * @param int *numCategories
- * @param char categories[][MAX_NAME_LEN + 1]
- * @param int quantities[]
+ * Function to change category name
+ * Called in editValues function below
+ * @param int index
+ * @param char *numCategories
+ * @param int userInput
  * @return void
 */
-void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
-    chartValues(*numCategories, categories, quantities);
-    int index, userChoice;
-    char userInput[MAX_NAME_LEN + 1];
-
-    printf("%s",EDIT_VALUES);
-    scanf(" %d", &userChoice);
-
-    chartValues(*numCategories, categories, quantities);
-    switch (userChoice) {
-        case 1:
-            changeCatName(index, numCategories, userInput);
-            break;
-        case 2:
-            changeCatQuant(index, numCategories, userInput);
-            break;
-        case 3:
-            addCategory(index, numCategories, userInput);
-            break;
-        case 4:
-            deleteCategory(index, numCategories, userInput);
-            break;
-        default:
-            printf("%s",INVALID_INPUT);
-            // editValues(&numCategories, categories, quantities);
-    }
-}
-
 int changeCatName(int index, char *numCategories, int userInput) {
     getCatIndex(index, numCategories);
 
@@ -75,6 +47,14 @@ int changeCatName(int index, char *numCategories, int userInput) {
     strcpy(categories[index - 1], userInput);
 }
 
+/**
+ * Function to change category quantity
+ * Called in editValues function below
+ * @param int index
+ * @param char *numCategories
+ * @param int userInput
+ * @return void
+*/
 int changeCatQuant(int index, char *numCategories, int userInput){
     getCatIndex(index, numCategories);
 
@@ -97,6 +77,14 @@ int changeCatQuant(int index, char *numCategories, int userInput){
     } while (1);
 }
 
+/**
+ * Function to add category
+ * Called in editValues function below
+ * @param int index
+ * @param char *numCategories
+ * @param int userInput
+ * @return void
+*/
 int addCategory(int index, char *numCategories, int userInput){
     if (*numCategories != MAX_CATEGORIES) {
         printf("\n%s",ENTER_CATNAME);
@@ -141,6 +129,14 @@ int addCategory(int index, char *numCategories, int userInput){
     }
 }
 
+/**
+ * Function to remove category
+ * Called in editValues function below
+ * @param int index
+ * @param char *numCategories
+ * @param int userInput
+ * @return void
+*/
 int deleteCategory(int index, char *numCategories, int userInput){
     do {
         printf("%s",ENTER_CATREMOVE);
@@ -161,6 +157,13 @@ int deleteCategory(int index, char *numCategories, int userInput){
     }
 }
 
+/**
+ * Function to get category index
+ * Called in changeCatName, changeCatQuant, addCategory, deleteCategory functions above
+ * @param int index
+ * @param char *numCategories
+ * @return void
+*/
 int getCatIndex(int index, char *numCategories) {
     do {
         printf("%s",ENTER_CATINDEX);
@@ -175,5 +178,42 @@ int getCatIndex(int index, char *numCategories) {
         break;
     } while (1);
 }
+
+/**
+ * Function to edit values of the chart
+ * @param int *numCategories
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int quantities[]
+ * @return void
+*/
+void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
+    chartValues(*numCategories, categories, quantities);
+    int index, userChoice;
+    char userInput[MAX_NAME_LEN + 1];
+
+    printf("%s",EDIT_VALUES);
+    scanf(" %d", &userChoice);
+
+    chartValues(*numCategories, categories, quantities);
+    switch (userChoice) {
+        case 1:
+            changeCatName(index, numCategories, userInput);
+            break;
+        case 2:
+            changeCatQuant(index, numCategories, userInput);
+            break;
+        case 3:
+            addCategory(index, numCategories, userInput);
+            break;
+        case 4:
+            deleteCategory(index, numCategories, userInput);
+            break;
+        default:
+            printf("%s",INVALID_INPUT);
+            // editValues(&numCategories, categories, quantities);
+    }
+}
+
+
 
 #endif
