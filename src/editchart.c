@@ -21,11 +21,11 @@ extern int quantities[MAX_CATEGORIES];
  * Function to change category name
  * Called in editValues function below
  * @param int index
- * @param char *numCategories
- * @param int userInput
+ * @param int *numCategories
+ * @param char *userInput
  * @return void
 */
-int changeCatName(int index, char *numCategories, int userInput) {
+int changeCatName(int index, int *numCategories, char *userInput) {
     getCatIndex(index, numCategories);
 
     printf("%s",ENTER_CATNAME);
@@ -51,11 +51,11 @@ int changeCatName(int index, char *numCategories, int userInput) {
  * Function to change category quantity
  * Called in editValues function below
  * @param int index
- * @param char *numCategories
- * @param int userInput
+ * @param int *numCategories
+ * @param char *userInput
  * @return void
 */
-int changeCatQuant(int index, char *numCategories, int userInput){
+int changeCatQuant(int index, int *numCategories, char *userInput){
     getCatIndex(index, numCategories);
 
     do {
@@ -81,11 +81,11 @@ int changeCatQuant(int index, char *numCategories, int userInput){
  * Function to add category
  * Called in editValues function below
  * @param int index
- * @param char *numCategories
- * @param int userInput
+ * @param int *numCategories
+ * @param char *userInput
  * @return void
 */
-int addCategory(int index, char *numCategories, int userInput){
+int addCategory(int index, int *numCategories, char *userInput){
     if (*numCategories != MAX_CATEGORIES) {
         printf("\n%s",ENTER_CATNAME);
         scanf("%s", userInput);
@@ -133,11 +133,11 @@ int addCategory(int index, char *numCategories, int userInput){
  * Function to remove category
  * Called in editValues function below
  * @param int index
- * @param char *numCategories
- * @param int userInput
+ * @param int *numCategories
+ * @param char *userInput
  * @return void
 */
-int deleteCategory(int index, char *numCategories, int userInput){
+int deleteCategory(int index, int *numCategories, char *userInput){
     do {
         printf("%s",ENTER_CATREMOVE);
         scanf("%d", &index);
@@ -161,10 +161,10 @@ int deleteCategory(int index, char *numCategories, int userInput){
  * Function to get category index
  * Called in changeCatName, changeCatQuant, addCategory, deleteCategory functions above
  * @param int index
- * @param char *numCategories
+ * @param int *numCategories
  * @return void
 */
-int getCatIndex(int index, char *numCategories) {
+int getCatIndex(int index, int *numCategories) {
     do {
         printf("%s",ENTER_CATINDEX);
         scanf("%d", &index);
