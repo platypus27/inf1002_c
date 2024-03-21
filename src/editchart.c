@@ -210,7 +210,6 @@ void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int qua
             break;
         default:
             printf("%s",INVALID_INPUT);
-            // editValues(&numCategories, categories, quantities);
     }
 }
 
