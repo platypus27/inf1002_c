@@ -27,10 +27,11 @@ int getSortMethod() {
     // sorting method
     printf("%s", INPUT_SORT);
     scanf(" %c", &sortChoice);
-    if (sortChoice == 'a') {
-        sortByCatName(quantities, categories, numCategories);
-    } else if (sortChoice == 'b') {
-        sortByBarLength(quantities, categories, numCategories);
+    switch (sortChoice) {
+        case 'a':
+            sortByCatName(quantities, categories, numCategories);
+        case 'b':
+            sortByBarLength(quantities, categories, numCategories);
     }
 }
 

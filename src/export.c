@@ -146,4 +146,36 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
     printf("%s", SUCCESS_SAVE);
 }
 
+/**
+ * Function to export data to a datasheet
+ * @param char categories[][MAX_NAME_LEN + 1]
+ * @param int quantities[]
+ * @param int numCategories
+ * @param int scaleofXaxis
+ * @param char *xAxisLabel
+ * @return int
+*/
+void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel, char sortChoice){
+    char filePath[155];
+    sprintf(filePath, "%s%s_%s_%c.csv", DIR_PATH, title, xAxisLabel, sortChoice);
+
+    // Open a file for writing
+    FILE *file = fopen(filePath, "w");
+    if (file == NULL) {
+        printf("Failed to open file\n");
+        printf("%s", FILE_ERROR);
+    }
+
+    printf("Successfully opened file\n");
+    // Write the data to the file
+    for (int i = 0; i < numCategories; i++) {
+        fprintf(file, "%s,%d\n", categories[i], quantities[i]);
+    }
+
+    // Close the file
+    fclose(file);
+
+    printf("%s", SUCCESS_SAVE);
+
+}
 #endif

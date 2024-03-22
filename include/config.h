@@ -27,7 +27,7 @@
 #define INPUT_SORT "Sort by (a) category name or (b) bar length? "
 
 //prompts
-#define MAIN_PRINT "1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Exit\n\nEnter option: "
+#define MAIN_PRINT "1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Export Dataset to file\n6. Exit\n\nEnter option: "
 #define EDIT_VALUES "\n1. Change category name \n2. Change category quantity \n3. Add new category \n4. Remove category\nSelect one of the options above: "
 #define ENTER_CATNAME "Enter category name: "
 #define ENTER_CATQUANTITY "Enter category quantity: "
@@ -51,5 +51,6 @@
 
 //configurations
 #define FILE_PATH "generated/graph.txt"
+#define DIR_PATH "generated/"
 
 #endif

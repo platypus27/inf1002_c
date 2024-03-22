@@ -31,12 +31,14 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
 void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]);
 
 //editchart.c
-void editValues(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]);
 int changeCatName(int index, int *numCategories, char *userInput);
 int changeCatQuant(int index, int *numCategories, char *userInput);
 int addCategory(int index, int *numCategories, char *userInput);
-int removeCategory(int index, int *numCategories, char *userInput);
+int deleteCategory(int index, int *numCategories, char *userInput);
 int getCatIndex(int index, int *numCategories);
+
+//editmenu.c
+void editmenu(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]);
 
 //error_handling.c
 int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCategories);
@@ -46,6 +48,10 @@ int checkLength(int i);
 int generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpacing, int tickSpacing, FILE *file);
 int generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file);
 void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
+void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel, char sortChoice);
+
+//import.c
+int importData();
 
 //sort.c
 int getSortMethod();
