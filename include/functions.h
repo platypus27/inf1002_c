@@ -17,6 +17,7 @@
 //main.c
 int getChoice();
 int inputs();
+int manualGen();
 
 //alignment.c
 char *alignCenter(char *title, int maxQuantity);
@@ -53,8 +54,6 @@ void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities
 //import.c
 int importData();
 int selectFile(char *fileName);
-int processFileName(char *fileName);
-void replaceBackslashes(char *fileName);
 
 //sort.c
 int getSortMethod();

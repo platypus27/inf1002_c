@@ -31,18 +31,21 @@ char* token;
 int importData() {
     char fileName[105] = "";
 
+    // open file after being selected
     if (selectFile(fileName) == 0) {
-        printf("Selected file: %s\n", fileName);
         FILE* file = fopen(fileName, "r");
         if (file == NULL) {
             perror("Error opening file\n");
             return 1;
         }
 
-        fscanf(file, "%d", &numCategories);
-        for (int i = 0; i < numCategories; i++) {
-            fscanf(file, "%s", categories[i]);
-            fscanf(file, "%d", &quantities[i]);
+        // get title and x-axis label from first line of file
+        fscanf(file, "%[^,],%s\n", title, xAxisLabel);
+
+        // get categories and quantities from file
+        numCategories = 0;
+        while (fscanf(file, "%[^,],%d\n", categories[numCategories], &quantities[numCategories]) == 2) {
+            numCategories++;
         }
 
         fclose(file);
@@ -66,43 +69,10 @@ int selectFile(char* fileName) {
     ofn.lpstrTitle = "Select a File";
     ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
     if (GetOpenFileName(&ofn)) {
-        replaceBackslashes(fileName);
-        processFileName(fileName);
+        // replaceBackslashes(fileName);
         return 0;  // File selected successfully
     } else {
         return 1;  // Failed to select a file
-    }
-}
-
-int processFileName(char* fileName) {
-    // process file name
-    filenameStart = strrchr(fileName, '\\');
-    if (filenameStart != NULL) {
-        filenameStart++;  // Move past the backslash
-    } else {
-        filenameStart = fileName;  // No backslash found, so the whole string is the filename
-    }
-
-    // Extracting title, xAxisLabel from the filename
-    token = strtok(filenameStart, "_");
-    strcpy(title, token);
-
-    token = strtok(NULL, "_");
-    strcpy(xAxisLabel, token);
-}
-
-void replaceBackslashes(char* str) {
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '\\') {
-            // Move everything one position to the right
-            for (int j = strlen(str); j > i; j--) {
-                str[j + 1] = str[j];
-            }
-            // Add the extra backslash
-            str[i + 1] = '\\';
-            // Skip the next character
-            i++;
-        }
     }
 }
 

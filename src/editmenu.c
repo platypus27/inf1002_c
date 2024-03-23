@@ -43,6 +43,8 @@ void editmenu(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quant
         case 4:
             deleteCategory(index, numCategories, userInput);
             break;
+        case 5:
+            break;
         default:
             printf("%s",INVALID_INPUT);
     }

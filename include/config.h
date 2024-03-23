@@ -27,8 +27,9 @@
 #define INPUT_SORT "Sort by (a) category name or (b) bar length? "
 
 //prompts
-#define MAIN_PRINT "1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Export Dataset to file\n6. Exit\n\nEnter option: "
-#define EDIT_VALUES "\n1. Change category name \n2. Change category quantity \n3. Add new category \n4. Remove category\nSelect one of the options above: "
+#define FIRST_PRINT "\n1. Manual Graph Generation\n2. Import Data\n3. Exit\n\nEnter option: "
+#define MAIN_PRINT "\n1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Export Dataset to file\n6. Import Dataset to generate Graph\n7. Back\n\nEnter option: "
+#define EDIT_VALUES "\n1. Change category name \n2. Change category quantity \n3. Add new category \n4. Remove category\n5. Back\nSelect one of the options above: "
 #define ENTER_CATNAME "Enter category name: "
 #define ENTER_CATQUANTITY "Enter category quantity: "
 #define ENTER_CATREMOVE "\nEnter Index of item to remove: "

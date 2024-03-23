@@ -157,17 +157,29 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
 */
 void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel){
     char filePath[155];
-    sprintf(filePath, "%s%s_%s_%c.csv", DIR_PATH, title, xAxisLabel);
+    // Ask for input for the file name
+    char fileName[100];
+    printf("Enter file name: ");
+    scanf("%s", fileName);
+
+    sprintf(filePath, "%s%s.csv", DIR_PATH, fileName);
+    FILE *fileExists = fopen(filePath, "r");
+    if (fileExists != NULL) {
+        printf("File with the same name already exists.\n");
+        fclose(fileExists);
+        return; // or handle the situation accordingly
+    }
 
     // Open a file for writing
     FILE *file = fopen(filePath, "w");
     if (file == NULL) {
         printf("Failed to open file\n");
         printf("%s", FILE_ERROR);
+        return; // or handle the situation accordingly
     }
 
-    printf("Successfully opened file\n");
     // Write the data to the file
+    fprintf(file, "title,xAxisLabel\n");
     for (int i = 0; i < numCategories; i++) {
         fprintf(file, "%s,%d\n", categories[i], quantities[i]);
     }
@@ -175,7 +187,6 @@ void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities
     // Close the file
     fclose(file);
 
-    printf("%s", SUCCESS_SAVE);
-
+    printf("%s\n", SUCCESS_SAVE);
 }
 #endif

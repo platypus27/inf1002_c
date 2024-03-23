@@ -26,11 +26,24 @@ char sortChoice;
 int choice, userChoice, numCategories, frontSpacing, scaleofXaxis;
 
 /**
- * Function to get user choice
+ * Function to see if user wants to import file or automatically generate
  * Mainly used to remove repeated printf and scanf
  * @return int
 */
 int getChoice() {
+    int choice;
+    printf(FIRST_PRINT);
+    scanf(" %d", &choice);
+    return choice;
+}
+
+
+/**
+ * Function to get user choice
+ * Mainly used to remove repeated printf and scanf
+ * @return int
+*/
+int getChoiceM() {
     int choice;
     printf(MAIN_PRINT);
     scanf(" %d", &choice);
@@ -56,11 +69,7 @@ int inputs() {
     getSortMethod();
 }
 
-/**
- * Main function
- * @return int
-*/
-int main() {
+int manualGen(){
     // get title of bar chart
     printf("%s",INPUT_TITLE);
     scanf(" %[^\n]", &title);
@@ -74,7 +83,7 @@ int main() {
     displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
 
     // get choice after generating first chart
-    choice = getChoice();
+    choice = getChoiceM();
     while (choice >= 1 && choice <= 6) {
         switch (choice) {
             // display chart
@@ -87,7 +96,7 @@ int main() {
                 break;
             // generate new chart
             case 3:
-                main();
+                manualGen();
                 break;
             // export chart to file
             case 4:
@@ -97,9 +106,36 @@ int main() {
             case 5:
                 exportData(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
                 break;
+            // import dataset to generate graph
             case 6:
                 importData();
                 break;
+            case 7:
+                return 0;
+        }
+        choice = getChoiceM();
+    }
+    return 0;
+}
+
+/**
+ * Main function
+ * @return int
+*/
+int main() {
+    choice = getChoice();
+    while (choice >= 1 && choice <= 3) {
+        switch (choice) {
+            // generate chart manually
+            case 1:
+                manualGen();
+                break;
+            // generate chart automatically from file
+            case 2:
+                importData();
+                break;
+            case 3:
+                return 0;
         }
         choice = getChoice();
     }

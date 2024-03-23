@@ -16,6 +16,10 @@
 
 extern char categories[MAX_CATEGORIES][MAX_NAME_LEN + 1];
 extern int quantities[MAX_CATEGORIES];
+extern char title[MAX_TITLE_LEN + 1];
+extern char xAxisLabel[MAX_NAME_LEN + 1];
+extern int scaleofXaxis;
+extern int numCategories;
 
 /**
  * Function to change category name
@@ -123,6 +127,7 @@ int addCategory(int index, int *numCategories, char *userInput){
             break;
         } while (1);
         (*numCategories)++;
+        displayChart(title, categories, quantities, *numCategories, scaleofXaxis, xAxisLabel);
     }
     else {
         printf("%s",INVLAID_MAX);
