@@ -28,15 +28,17 @@ int multiplier(int n);
 int getCategories();
 
 //chartgen.c
-void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
+void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, char *xAxisLabel);
 void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]);
 
 //editchart.c
-int changeCatName(int index, int *numCategories, char *userInput);
-int changeCatQuant(int index, int *numCategories, char *userInput);
-int addCategory(int index, int *numCategories, char *userInput);
-int deleteCategory(int index, int *numCategories, char *userInput);
+int changeCatName(int index, int *numCategories);
+int changeCatQuant(int index, int *numCategories);
+int addCategory(int index, int *numCategories);
+int deleteCategory(int index, int *numCategories);
 int getCatIndex(int index, int *numCategories);
+int editTitle(char title[]);
+int editXLabel(char xAxisLabel[]);
 
 //editmenu.c
 void editmenu(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]);

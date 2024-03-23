@@ -80,7 +80,7 @@ int manualGen(){
     inputs();
 
     // display graph
-    displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
+    displayChart(title, categories, quantities, numCategories, xAxisLabel);
 
     // get choice after generating first chart
     choice = getChoiceM();
@@ -88,7 +88,7 @@ int manualGen(){
         switch (choice) {
             // display chart
             case 1:
-                displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
+                displayChart(title, categories, quantities, numCategories, xAxisLabel);
                 break;
             // edit values in chart
             case 2:

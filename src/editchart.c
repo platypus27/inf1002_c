@@ -20,25 +20,27 @@ extern char title[MAX_TITLE_LEN + 1];
 extern char xAxisLabel[MAX_NAME_LEN + 1];
 extern int scaleofXaxis;
 extern int numCategories;
+extern char sortChoice;
 
 /**
  * Function to change category name
  * Called in editValues function below
+ * case 1
  * @param int index
  * @param int *numCategories
- * @param char *userInput
  * @return void
 */
-int changeCatName(int index, int *numCategories, char *userInput) {
+int changeCatName(int index, int *numCategories) {
+    char inputName[MAX_NAME_LEN + 1];
     getCatIndex(index, numCategories);
 
     printf("%s",ENTER_CATNAME);
-    scanf("%s", userInput);
+    scanf("%s", inputName);
 
     for (int j = 0; j < *numCategories; j++) {
-        if (strcmp(userInput, categories[j]) == 0) {
+        if (strcmp(inputName, categories[j]) == 0) {
             printf("%s",CATNAME_EXISTS);
-            scanf("%s", userInput);
+            scanf("%s", inputName);
             j = -1;
         }
     }
@@ -46,20 +48,20 @@ int changeCatName(int index, int *numCategories, char *userInput) {
     // check if category name is too long
     if (strlen(categories[index]) > MAX_NAME_LEN) {
         printf("%s",CATNAME_LONG);
-        scanf("%s", userInput);
+        scanf("%s", inputName);
     }
-    strcpy(categories[index - 1], userInput);
+    strcpy(categories[index - 1], inputName);
 }
 
 /**
  * Function to change category quantity
  * Called in editValues function below
+ * case 2
  * @param int index
  * @param int *numCategories
- * @param char *userInput
  * @return void
 */
-int changeCatQuant(int index, int *numCategories, char *userInput){
+int changeCatQuant(int index, int *numCategories){
     getCatIndex(index, numCategories);
 
     do {
@@ -84,30 +86,31 @@ int changeCatQuant(int index, int *numCategories, char *userInput){
 /**
  * Function to add category
  * Called in editValues function below
+ * case 3
  * @param int index
  * @param int *numCategories
- * @param char *userInput
  * @return void
 */
-int addCategory(int index, int *numCategories, char *userInput){
+int addCategory(int index, int *numCategories){
+    char inputName[MAX_NAME_LEN + 1];
     if (*numCategories != MAX_CATEGORIES) {
         printf("\n%s",ENTER_CATNAME);
-        scanf("%s", userInput);
+        scanf("%s", inputName);
 
         for (int j = 0; j < *numCategories; j++) {
-            if (strcmp(userInput, categories[j]) == 0) {
+            if (strcmp(inputName, categories[j]) == 0) {
                 printf("%s",CATNAME_EXISTS);
-                scanf("%s", userInput);
+                scanf("%s", inputName);
                 j = -1;
             }
         }
 
         // check if category name is too long
-        if (strlen(userInput) > MAX_NAME_LEN) {
+        if (strlen(inputName) > MAX_NAME_LEN) {
             printf("%s",CATNAME_LONG);
-            scanf("%s", userInput);
+            scanf("%s", inputName);
         }
-        strcpy(categories[*numCategories], userInput);
+        strcpy(categories[*numCategories], inputName);
 
         do {
             printf("%s",ENTER_CATQUANTITY);
@@ -127,7 +130,7 @@ int addCategory(int index, int *numCategories, char *userInput){
             break;
         } while (1);
         (*numCategories)++;
-        displayChart(title, categories, quantities, *numCategories, scaleofXaxis, xAxisLabel);
+        displayChart(title, categories, quantities, *numCategories, xAxisLabel);
     }
     else {
         printf("%s",INVLAID_MAX);
@@ -137,12 +140,12 @@ int addCategory(int index, int *numCategories, char *userInput){
 /**
  * Function to remove category
  * Called in editValues function below
+ * case 4
  * @param int index
  * @param int *numCategories
- * @param char *userInput
  * @return void
 */
-int deleteCategory(int index, int *numCategories, char *userInput){
+int deleteCategory(int index, int *numCategories){
     do {
         printf("%s",ENTER_CATREMOVE);
         scanf("%d", &index);
@@ -160,6 +163,29 @@ int deleteCategory(int index, int *numCategories, char *userInput){
         quantities[count] = quantities[count + 1];
         strcpy(categories[count], categories[count + 1]);
     }
+    displayChart(title, categories, quantities, *numCategories, xAxisLabel);
+}
+
+/**
+ * Function to edit chart title
+ * @param char *title
+ * @return void
+*/
+int editTitle(char *title) {
+    printf("%s",INPUT_TITLE);
+    scanf("%s", title);
+    displayChart(title, categories, quantities, numCategories, xAxisLabel);
+}
+
+/**
+ * Function to edit x-axis label
+ * @param char *xAxisLabel
+ * @return void
+*/
+int editXLabel(char *xAxisLabel) {
+    printf("%s",INPUT_LABELX);
+    scanf("%s", xAxisLabel);
+    displayChart(title, categories, quantities, numCategories, xAxisLabel);
 }
 
 /**

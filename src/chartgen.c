@@ -30,8 +30,8 @@ extern int quantities[MAX_CATEGORIES];
  * @param char *xAxisLabel
  * @return void
 */
-void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel) {
-
+void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, char *xAxisLabel) {
+    int scaleofXaxis;
     int maxQuantity = 0;
     int frontSpacing = 0;
 

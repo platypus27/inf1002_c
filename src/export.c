@@ -187,6 +187,6 @@ void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities
     // Close the file
     fclose(file);
 
-    printf("%s\n", SUCCESS_SAVE);
+    printf("%s %s%s\n", SUCCESS_SAVE_DATA, DIR_PATH, fileName);
 }
 #endif

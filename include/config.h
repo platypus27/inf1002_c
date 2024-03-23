@@ -29,7 +29,7 @@
 //prompts
 #define FIRST_PRINT "\n1. Manual Graph Generation\n2. Import Data\n3. Exit\n\nEnter option: "
 #define MAIN_PRINT "\n1. Print Chart\n2. Edit Chart\n3. New Chart\n4. Export Chart\n5. Export Dataset to file\n6. Import Dataset to generate Graph\n7. Back\n\nEnter option: "
-#define EDIT_VALUES "\n1. Change category name \n2. Change category quantity \n3. Add new category \n4. Remove category\n5. Back\nSelect one of the options above: "
+#define EDIT_VALUES "\n1. Change category name \n2. Change category quantity \n3. Add new category \n4. Remove category\n5. Edit Chart Title\n6. Edit X-axis Label\n7. Edit Sort Method\n8. Back\nSelect one of the options above: "
 #define ENTER_CATNAME "Enter category name: "
 #define ENTER_CATQUANTITY "Enter category quantity: "
 #define ENTER_CATREMOVE "\nEnter Index of item to remove: "
@@ -48,7 +48,8 @@
 #define INVALID_RANGE "Input error. Please enter a valid integer between 1 and "
 
 //success msgs
-#define SUCCESS_SAVE "Chart saved to file.\n"
+#define SUCCESS_SAVE "Chart saved to"
+#define SUCCESS_SAVE_DATA "Dataset saved to"
 
 //configurations
 #define FILE_PATH "generated/graph.txt"

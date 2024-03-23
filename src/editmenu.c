@@ -14,6 +14,10 @@
 #include "../include/config.h"
 #include "../include/functions.h"
 
+extern char title[MAX_TITLE_LEN + 1];
+extern char xAxisLabel[MAX_NAME_LEN + 1];
+extern char sortChoice;
+
 /**
  * Function to edit values of the chart
  * @param int *numCategories
@@ -31,19 +35,37 @@ void editmenu(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quant
 
     chartValues(*numCategories, categories, quantities);
     switch (userChoice) {
+        // change category name
         case 1:
-            changeCatName(index, numCategories, userInput);
+            changeCatName(index, numCategories);
             break;
+        // change category quantity
         case 2:
-            changeCatQuant(index, numCategories, userInput);
+            changeCatQuant(index, numCategories);
             break;
+        // add new category
         case 3:
-            addCategory(index, numCategories, userInput);
+            addCategory(index, numCategories);
             break;
+        // remove category
         case 4:
-            deleteCategory(index, numCategories, userInput);
+            deleteCategory(index, numCategories);
             break;
+        // change title
         case 5:
+            editTitle(title);
+            break;
+        // change x-axis label
+        case 6:
+            editXLabel(xAxisLabel);
+            break;
+        // change sort method
+        case 7:
+            getSortMethod();
+            displayChart(title, categories, quantities, *numCategories, xAxisLabel);
+            break;
+        // back
+        case 8:
             break;
         default:
             printf("%s",INVALID_INPUT);

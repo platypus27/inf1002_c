@@ -49,7 +49,7 @@ int importData() {
         }
 
         fclose(file);
-        displayChart(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
+        displayChart(title, categories, quantities, numCategories, xAxisLabel);
     } else {
         printf("Failed to select a file\n");
     }
