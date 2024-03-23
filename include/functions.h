@@ -48,10 +48,13 @@ int checkLength(int i);
 int generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpacing, int tickSpacing, FILE *file);
 int generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file);
 void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
-void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel, char sortChoice);
+void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
 
 //import.c
 int importData();
+int selectFile(char *fileName);
+int processFileName(char *fileName);
+void replaceBackslashes(char *fileName);
 
 //sort.c
 int getSortMethod();

@@ -155,9 +155,9 @@ void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantitie
  * @param char *xAxisLabel
  * @return int
 */
-void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel, char sortChoice){
+void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel){
     char filePath[155];
-    sprintf(filePath, "%s%s_%s_%c.csv", DIR_PATH, title, xAxisLabel, sortChoice);
+    sprintf(filePath, "%s%s_%s_%c.csv", DIR_PATH, title, xAxisLabel);
 
     // Open a file for writing
     FILE *file = fopen(filePath, "w");

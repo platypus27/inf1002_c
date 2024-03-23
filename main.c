@@ -75,7 +75,7 @@ int main() {
 
     // get choice after generating first chart
     choice = getChoice();
-    while (choice >= 1 && choice <= 5) {
+    while (choice >= 1 && choice <= 6) {
         switch (choice) {
             // display chart
             case 1:
@@ -95,7 +95,10 @@ int main() {
                 break;
             // export dataset to file
             case 5:
-                exportData(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel, sortChoice);
+                exportData(title, categories, quantities, numCategories, scaleofXaxis, xAxisLabel);
+                break;
+            case 6:
+                importData();
                 break;
         }
         choice = getChoice();

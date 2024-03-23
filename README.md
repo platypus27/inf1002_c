@@ -10,7 +10,7 @@ functions to work on
 - sortbyname
 
 run:
-gcc main.c src/*.c
+gcc -o a.exe main.c src/*.c -lcomdlg32
 
 script:
 to automate first bar graph gen process to save time
