@@ -32,7 +32,7 @@ extern char sortChoice;
 */
 int changeCatName(int index, int *numCategories) {
     char inputName[MAX_NAME_LEN + 1];
-    getCatIndex(index, numCategories);
+    index = getCatIndex(index, numCategories);
 
     printf("%s",ENTER_CATNAME);
     scanf("%s", inputName);
@@ -62,7 +62,7 @@ int changeCatName(int index, int *numCategories) {
  * @return void
 */
 int changeCatQuant(int index, int *numCategories){
-    getCatIndex(index, numCategories);
+    index = getCatIndex(index, numCategories);
 
     do {
         printf("%s",ENTER_CATQUANTITY);
