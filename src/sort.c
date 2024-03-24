@@ -30,8 +30,10 @@ int getSortMethod() {
     switch (sortChoice) {
         case 'a':
             sortByCatName(quantities, categories, numCategories);
+            break;
         case 'b':
             sortByBarLength(quantities, categories, numCategories);
+            break;
     }
 }
 
