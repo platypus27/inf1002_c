@@ -70,9 +70,5 @@ void getSortMethod();
 void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);
 void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);
 
-// sound.c
-void playDog();
-void playCat();
-
 
 #endif
