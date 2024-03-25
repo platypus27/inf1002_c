@@ -37,7 +37,7 @@ int getCategories() {
     for (int i = 0; i < numCategories; i++)
     {
         printf("Enter category %d name: ", i + 1);
-        scanf("%s", categories[i]);
+        scanf(" %[^\n]", &categories[i]);
         frontSpacing = strlen(categories[0]);
         for (int j = 0; j < i; j++){
             if (strcmp(categories[i], categories[j]) == 0)
