@@ -11,6 +11,11 @@
 #define CATEGORIES_C
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <conio.h> 
+#include <windows.h>
+#include <mmsystem.h>
+
 #include "../include/config.h"
 #include "../include/functions.h"
 
@@ -47,9 +52,9 @@ int getCategories() {
                 snake();
             }
         } else if (strcmp(categories[i], "cat") == 0) {
-            printf("placeholder");
+            PlaySound(TEXT("sound/cat-meow5.wav"), NULL, SND_FILENAME | SND_ASYNC);
         } else if (strcmp(categories[i], "dog") == 0) {
-            printf("placeholder");
+            PlaySound(TEXT("sound/dog-bark7.wav"), NULL, SND_FILENAME | SND_ASYNC);
         }
         frontSpacing = strlen(categories[0]);
         for (int j = 0; j < i; j++){
