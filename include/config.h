@@ -55,4 +55,8 @@
 #define FILE_PATH "generated/graph.txt"
 #define DIR_PATH "generated/"
 
+//snake
+#define EXIT_SNAKE "Press X to quit the game\n"
+#define SLEEP_TIME 200
+
 #endif

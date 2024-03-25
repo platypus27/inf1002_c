@@ -50,6 +50,7 @@ void changeCatName(int index, int *numCategories) {
         scanf("%s", inputName);
     }
     strcpy(categories[index - 1], inputName);
+
 }
 
 /**

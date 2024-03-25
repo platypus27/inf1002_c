@@ -38,6 +38,19 @@ int getCategories() {
     {
         printf("Enter category %d name: ", i + 1);
         scanf(" %[^\n]", &categories[i]);
+        if (strcmp(categories[i], "snake") == 0) {
+            char yn;
+            printf("Do you want to play snake? (y/n): ");
+            scanf(" %c", &yn);
+            if (yn == 'y') {
+                printf("test");
+                snake();
+            }
+        } else if (strcmp(categories[i], "cat") == 0) {
+            printf("placeholder");
+        } else if (strcmp(categories[i], "dog") == 0) {
+            printf("placeholder");
+        }
         frontSpacing = strlen(categories[0]);
         for (int j = 0; j < i; j++){
             if (strcmp(categories[i], categories[j]) == 0)

@@ -1,7 +1,20 @@
-#include <conio.h> 
-#include <stdio.h> 
-#include <stdlib.h> 
+/**
+ * Get Categories Function
+ * @version 1.0
+ * @author Ng Ao Yu 2303697
+ * @author Jay Lim Jun Han 2303699
+ * @author Yeo Hiong Kai 2303688
+ * @author Lee Cheng Kae 2303702
+*/
+
+#ifndef SNAKE_C
+#define SNAKE_C
+#include <stdio.h>
+#include <stdlib.h>
 #include <windows.h> 
+#include <conio.h> 
+#include "../include/config.h"
+#include "../include/functions.h"
 
 int i, j, height = 20, width = 20; 
 int gameover, score; 
@@ -60,7 +73,7 @@ void draw()
     // game ends 
     printf("score = %d", score); 
     printf("\n"); 
-    printf("press X to quit the game"); 
+    printf(EXIT_SNAKE); 
 } 
 
 /**
@@ -96,7 +109,7 @@ void input()
 */
 void logic() 
 { 
-    Sleep(1); 
+    Sleep(SLEEP_TIME); 
     switch (flag) { 
     case 1: 
         y--; 
@@ -141,7 +154,7 @@ void logic()
  * Function to run snake game
  * @return int
 */
-void main() { 
+void snake() { 
     int m, n; 
 
     // Generate boundary 
@@ -156,3 +169,5 @@ void main() {
         logic(); 
     } 
 } 
+
+#endif
