@@ -93,13 +93,15 @@ void generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quanti
  * @return void
 */
 void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel) {
-    char filePath;
-    // printf("\nEnter file path to save to: ");
-    // scanf("%d", &filePath);
-    // strcat(filePath, ".txt");
+    char input[30];
+    char filePath[] = "generated/";
+    printf("\nEnter file path to save to: ");
+    scanf(" %[^\n]", input);    
+    strcat(filePath, input);
+    strcat(filePath, ".txt");
 
     // Open a file for writing
-    FILE *file = fopen(FILE_PATH, "a");
+    FILE *file = fopen(filePath, "a");
     if (file == NULL) {
         printf("%s",FILE_ERROR);
     }
