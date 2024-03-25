@@ -58,9 +58,17 @@ void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities
 int importData();
 int selectFile(char *fileName);
 
+//snake.c
+void setup();
+void draw();
+void input();
+void logic();
+void snake();
+
 //sort.c
 void getSortMethod();
 void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);
 void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);
+
 
 #endif
