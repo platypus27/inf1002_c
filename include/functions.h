@@ -15,6 +15,7 @@
 #include "config.h"
 
 //main.c
+void welcome();
 int getChoice();
 int inputs();
 int manualGen();

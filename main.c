@@ -26,6 +26,19 @@ char sortChoice;
 int choice, userChoice, numCategories, frontSpacing, scaleofXaxis;
 
 /**
+ * Function to print welcome hehe
+ * @return void
+*/
+void welcome() {
+    printf("______  ___  ______    _____  _   _   ___  ______ _____ \n");
+    printf("| ___ \\/ _ \\ | ___ \\  /  __ \\| | | | / _ \\ | ___ \\ _   _|\n");
+    printf("| |_/ / /_\\ \\| |_/ /  | /  \\/| |_| |/ /_\\ \\| |_/ / | |  \n");
+    printf("| ___ \\  _  ||    /   | |    |  _  ||  _  ||    /  | |  \n");
+    printf("| |_/ / | | || |\\ \\   | \\__/\\| | | || | | || |\\ \\  | |  \n");
+    printf("\\____/\\_| |_/\\_| \\_|   \\____/\\_| |_/\\_| |_/\\_| \\_| \\_/  \n");
+}
+
+/**
  * Function to see if user wants to import file or automatically generate
  * Mainly used to remove repeated printf and scanf
  * @return int
@@ -123,6 +136,7 @@ int manualGen(){
  * @return int
 */
 int main() {
+    welcome();
     choice = getChoice();
     while (choice >= 1 && choice <= 3) {
         switch (choice) {
