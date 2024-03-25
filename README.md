@@ -21,3 +21,6 @@ Set your own terminal's encoding to utf-8
 to automate first bar graph gen process to save time
 1. python test.py on vsc terminal
 2. open cmd on windows and cd to path
+
+## Example
+![image](https://github.com/platypus27/inf1002_c/assets/84365804/ec0f33d2-9f72-4613-beea-84f795bea153)
