@@ -23,7 +23,7 @@ extern int numCategories;
  * Function to get sorting method
  * @return int
 */
-int getSortMethod() {
+void getSortMethod() {
     // sorting method
     printf("%s", INPUT_SORT);
     scanf(" %c", &sortChoice);

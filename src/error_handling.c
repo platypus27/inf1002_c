@@ -40,7 +40,7 @@ int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCat
  * @param int i
  * @return void
 */
-int checkLength(int i) {
+void checkLength(int i) {
     if (strlen(categories[i]) > MAX_NAME_LEN) { 
         printf("%s", CATNAME_LONG);
         scanf("%s", categories[i]);

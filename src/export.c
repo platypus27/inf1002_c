@@ -26,7 +26,7 @@ int tickSpacing;
  * @param FILE *file
  * @return int
 */
-int generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpacing, int tickSpacing, FILE *file) {
+void generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpacing, int tickSpacing, FILE *file) {
     // Print x-axis
     fprintf(file, "%s+", genWhitespace(frontSpacing));
     for (int i = 0; i < maxScaledQty; i++) {
@@ -57,7 +57,7 @@ int generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpac
 
 }
 
-int generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file){
+void generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file){
     // Print the bar chart
     title = alignCenter(title, maxScaledQty + frontSpacing);
     fprintf(file, "\n%s\n", title);

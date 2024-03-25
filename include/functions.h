@@ -32,24 +32,24 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
 void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]);
 
 //editchart.c
-int changeCatName(int index, int *numCategories);
-int changeCatQuant(int index, int *numCategories);
-int addCategory(int index, int *numCategories);
-int deleteCategory(int index, int *numCategories);
+void changeCatName(int index, int *numCategories);
+void changeCatQuant(int index, int *numCategories);
+void addCategory(int index, int *numCategories);
+void deleteCategory(int index, int *numCategories);
+void editTitle(char *title);
+void editXLabel(char *xAxisLabel);
 int getCatIndex(int index, int *numCategories);
-int editTitle(char title[]);
-int editXLabel(char xAxisLabel[]);
 
 //editmenu.c
 void editmenu(int *numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]);
 
 //error_handling.c
 int isDuplicateName(char name[], char categories[][MAX_NAME_LEN + 1], int numCategories);
-int checkLength(int i);
+void checkLength(int i);
 
 //export.c
-int generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpacing, int tickSpacing, FILE *file);
-int generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file);
+void generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpacing, int tickSpacing, FILE *file);
+void generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file);
 void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
 void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
 
@@ -58,7 +58,7 @@ int importData();
 int selectFile(char *fileName);
 
 //sort.c
-int getSortMethod();
+void getSortMethod();
 void sortByBarLength(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);
 void sortByCatName(int quantities[], char categories[][MAX_NAME_LEN + 1], int numCategories);
 

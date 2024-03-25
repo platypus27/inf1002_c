@@ -30,7 +30,7 @@ extern char sortChoice;
  * @param int *numCategories
  * @return void
 */
-int changeCatName(int index, int *numCategories) {
+void changeCatName(int index, int *numCategories) {
     char inputName[MAX_NAME_LEN + 1];
     index = getCatIndex(index, numCategories);
 
@@ -45,7 +45,6 @@ int changeCatName(int index, int *numCategories) {
         }
     }
 
-    // check if category name is too long
     if (strlen(categories[index]) > MAX_NAME_LEN) {
         printf("%s",CATNAME_LONG);
         scanf("%s", inputName);
@@ -61,7 +60,7 @@ int changeCatName(int index, int *numCategories) {
  * @param int *numCategories
  * @return void
 */
-int changeCatQuant(int index, int *numCategories){
+void changeCatQuant(int index, int *numCategories){
     index = getCatIndex(index, numCategories);
 
     do {
@@ -91,7 +90,7 @@ int changeCatQuant(int index, int *numCategories){
  * @param int *numCategories
  * @return void
 */
-int addCategory(int index, int *numCategories){
+void addCategory(int index, int *numCategories){
     char inputName[MAX_NAME_LEN + 1];
     if (*numCategories != MAX_CATEGORIES) {
         printf("\n%s",ENTER_CATNAME);
@@ -145,7 +144,7 @@ int addCategory(int index, int *numCategories){
  * @param int *numCategories
  * @return void
 */
-int deleteCategory(int index, int *numCategories){
+void deleteCategory(int index, int *numCategories){
     do {
         printf("%s",ENTER_CATREMOVE);
         scanf("%d", &index);
@@ -171,7 +170,7 @@ int deleteCategory(int index, int *numCategories){
  * @param char *title
  * @return void
 */
-int editTitle(char *title) {
+void editTitle(char *title) {
     printf("%s",INPUT_TITLE);
     scanf("%s", title);
     displayChart(title, categories, quantities, numCategories, xAxisLabel);
@@ -182,7 +181,7 @@ int editTitle(char *title) {
  * @param char *xAxisLabel
  * @return void
 */
-int editXLabel(char *xAxisLabel) {
+void editXLabel(char *xAxisLabel) {
     printf("%s",INPUT_LABELX);
     scanf("%s", xAxisLabel);
     displayChart(title, categories, quantities, numCategories, xAxisLabel);
