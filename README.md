@@ -14,7 +14,7 @@ Bar Chart Generator in C
 Set your own terminal's encoding to utf-8 (chcp 65001)
 
 ## How to Run
-1. gcc -o a.exe main.c src/*.c -lcomdlg32 -lwinmm
+1. gcc -o a.exe index.c src/*.c -lcomdlg32 -lwinmm
 2. a.exe
 
 ## Script for testing
