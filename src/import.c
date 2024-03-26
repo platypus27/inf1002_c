@@ -28,6 +28,10 @@ extern int scaleofXaxis;
 char* filenameStart;
 char* token;
 
+/**
+ * Function to import data
+ * @return int
+*/
 int importData() {
     char fileName[105] = "";
 
@@ -57,6 +61,11 @@ int importData() {
     return 0;
 }
 
+/**
+ * Function to select a file
+ * @param char* fileName
+ * @return int
+*/
 int selectFile(char* fileName) {
     OPENFILENAME ofn;
 
