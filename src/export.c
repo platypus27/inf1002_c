@@ -58,26 +58,34 @@ void generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpa
 }
 
 void generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file){
-    // Print the bar chart
+    // Center the title and print it to the file
     title = alignCenter(title, maxScaledQty + frontSpacing);
     fprintf(file, "\n%s\n", title);
+
+    // Loop through each category
     for (int i = 0; i < numCategories; i++) {
+        // Calculate the additional spacing needed for each category
         int additionalSpacing = frontSpacing - strlen(categories[i]);
-        fprintf(file, "%s|\n", genWhitespace(frontSpacing)); // Adjust spacing as needed
+
+        // Print the category name to the file, adjusting the spacing as needed
+        fprintf(file, "%s|\n", genWhitespace(frontSpacing));
         if (additionalSpacing > 0) {
             fprintf(file, "%s%s|", genWhitespace(additionalSpacing), categories[i]);
         }
         else {
             fprintf(file, "%s|", categories[i]);
         }
-        int scaledQty = (quantities[i] * 60) / maxQuantity; // Adjust scaling as needed
+
+        // Calculate the scaled quantity for the category and print it to the file
+        int scaledQty = (quantities[i] * 60) / maxQuantity;
         for (int j = 0; j < scaledQty; j++) {
             fprintf(file, "\u2588");
         }
         fprintf(file, " %d \n", quantities[i]);
     }
-    // Print tick marks and labels
-    int numTickMarks = (maxScaledQty / 15) + 1; // Roughly one tick every 10 units
+
+    // Calculate the number of tick marks and the spacing between them
+    int numTickMarks = (maxScaledQty / 15) + 1;
     tickSpacing = maxScaledQty / (numTickMarks - 1);
 }
 

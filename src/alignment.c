@@ -36,12 +36,18 @@ char *genWhitespace(int numSpaces) {
  * @return char *
 */
 char *alignCenter(char *title, int maxQuantity) {
+    // calculate the amount of spacing needed on each side of the title
     int spacing = (maxQuantity - strlen(title)) / 2;
+
+    // allocate memory for the new string that will hold the aligned title
     char *alignedTitle = malloc(strlen(title) + spacing + 1);
+
+    // align spaces
     for (int count = 0; count < spacing; count++) {
         alignedTitle[count] = ' ';
     }
 
+    // copy the title into the new string
     strcpy(alignedTitle + spacing, title);
     return alignedTitle;
 }
@@ -52,11 +58,16 @@ char *alignCenter(char *title, int maxQuantity) {
  * @return int
 */
 int multiplier(int n) {
+    // Initialize a counter to keep track of the number of digits in n
     int count = 0;
+
+    // Divide n by 10 until it becomes 0, incrementing the counter at each step
     while (n != 0) {
         n /= 10;
         ++count;
     }
+
+    // If 10 raised to the power of (count - 2) is less than 1, return 1
     if (pow(10, count - 2) < 1) {
         return 1;
     }

@@ -21,35 +21,33 @@ extern char categories[MAX_CATEGORIES][MAX_NAME_LEN + 1];
 extern int quantities[MAX_CATEGORIES];
 
 /**
- * Function to display the bar chart
- * Essentially creates bar chart
- * @param char *title
- * @param char categories[][MAX_NAME_LEN + 1]
- * @param int quantities[]
- * @param int numCategories
- * @param int scaleofXaxis
- * @param char *xAxisLabel
+ * Function to display the chart
+ * @param char *title - The title of the chart
+ * @param char categories[][MAX_NAME_LEN + 1] - The categories to be displayed
+ * @param int quantities[] - The quantities for each category
+ * @param int numCategories - The number of categories
+ * @param char *xAxisLabel - The label for the x-axis
  * @return void
-*/
+ */
 void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, char *xAxisLabel) {
     int scaleofXaxis;
     int maxQuantity = 0;
     int frontSpacing = 0;
 
+    // Find the maximum quantity and the largest category name length
     for (int i = 0; i < numCategories; i++) {
-        // Find maximum quantity for scaling
         if (quantities[i] > maxQuantity) {
             maxQuantity = quantities[i];
         }
-        // Get largest length of front spacing
         if (strlen(categories[i]) > frontSpacing) {
             frontSpacing = strlen(categories[i]);
         }
     }
 
+    // Calculate the scale for the x-axis
     scaleofXaxis = multiplier(maxQuantity);
 
-    // Find maximum scaled quantity for x-axis scaling
+    // Find the maximum scaled quantity for x-axis scaling
     int maxScaledQty = 0;
     for (int i = 0; i < numCategories; i++) {
         int scaledQty = (quantities[i] * 60) / maxQuantity;
@@ -112,11 +110,11 @@ void displayChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantiti
 
 /**
  * Function to display the chart values
- * @param int numCategories
- * @param char categories[][MAX_NAME_LEN + 1]
- * @param int quantities[]
+ * @param int numCategories - The number of categories
+ * @param char categories[][MAX_NAME_LEN + 1] - The categories to be displayed
+ * @param int quantities[] - The quantities for each category
  * @return void
-*/
+ */
 void chartValues(int numCategories, char categories[][MAX_NAME_LEN + 1], int quantities[]) {
     printf("%s",PRINT_CHART);
     for (int i = 0; i < numCategories; i++) {
