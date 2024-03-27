@@ -53,6 +53,7 @@ void generateX(int maxQuantity, int scaleofXaxis, int maxScaledQty, int frontSpa
 void generateChart(char title[], char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int maxQuantity, int maxScaledQty, int frontSpacing, FILE *file);
 void exportChart(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
 void exportData(char *title, char categories[][MAX_NAME_LEN + 1], int quantities[], int numCategories, int scaleofXaxis, char *xAxisLabel);
+int generatedFolder();
 
 //import.c
 int importData();
