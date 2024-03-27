@@ -25,18 +25,23 @@ extern int numCategories;
 */
 void getSortMethod() {
     // sorting method
-    printf("%s", INPUT_SORT);
-    scanf(" %c", &sortChoice);
-    switch (sortChoice) {
-        // sort by categore name
-        case 'a':
-            sortByCatName(quantities, categories, numCategories);
-            break;
-        // sort by bar length
-        case 'b':
-            sortByBarLength(quantities, categories, numCategories);
-            break;
-    }
+    do {
+        printf("%s", INPUT_SORT);
+        scanf(" %c", &sortChoice);
+        switch (sortChoice) {
+            // sort by categore name
+            case 'a':
+                sortByCatName(quantities, categories, numCategories);
+                break;
+            // sort by bar length
+            case 'b':
+                sortByBarLength(quantities, categories, numCategories);
+                break;
+            default:
+                printf("Enter either option a or b\n");
+                break;
+        }
+    } while (sortChoice != 'a' && sortChoice != 'b');
 }
 
 /**
