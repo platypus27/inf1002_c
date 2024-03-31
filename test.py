@@ -12,7 +12,9 @@ else:
     print("No Command Prompt found")
 
 def on_button_click():
+    pyautogui.typewrite("gcc -o a.exe main.c src/*.c -lcomdlg32" + '\n')
     pyautogui.typewrite("a.exe" + '\n')
+    pyautogui.typewrite("1" + '\n')
     pyautogui.typewrite("test" + '\n')
     pyautogui.typewrite("2" + '\n')
     pyautogui.typewrite("cat" + '\n')
