@@ -30,14 +30,20 @@ extern char sortChoice;
  * @param int *numCategories
  * @return void
 */
-int changeCatName(int index, int *numCategories) {
+void changeCatName(int index, int *numCategories) {
+    // Create a buffer to hold the new category name
     char inputName[MAX_NAME_LEN + 1];
+
+    // Get the actual index of the category
     index = getCatIndex(index, numCategories);
 
+    // Prompt the user to enter a new name for the category
     printf("%s",ENTER_CATNAME);
     scanf("%s", inputName);
 
+    // Loop through all the categories
     for (int j = 0; j < *numCategories; j++) {
+        // If the new name matches an existing category name, prompt the user to enter a different name
         if (strcmp(inputName, categories[j]) == 0) {
             printf("%s",CATNAME_EXISTS);
             scanf("%s", inputName);
@@ -45,11 +51,13 @@ int changeCatName(int index, int *numCategories) {
         }
     }
 
-    // check if category name is too long
+    // If the new name is too long, prompt the user to enter a shorter name
     if (strlen(categories[index]) > MAX_NAME_LEN) {
         printf("%s",CATNAME_LONG);
         scanf("%s", inputName);
     }
+
+    // Copy the new name into the category array at the specified index
     strcpy(categories[index - 1], inputName);
 }
 
@@ -61,7 +69,7 @@ int changeCatName(int index, int *numCategories) {
  * @param int *numCategories
  * @return void
 */
-int changeCatQuant(int index, int *numCategories){
+void changeCatQuant(int index, int *numCategories){
     index = getCatIndex(index, numCategories);
 
     do {
@@ -91,7 +99,7 @@ int changeCatQuant(int index, int *numCategories){
  * @param int *numCategories
  * @return void
 */
-int addCategory(int index, int *numCategories){
+void addCategory(int index, int *numCategories){
     char inputName[MAX_NAME_LEN + 1];
     if (*numCategories != MAX_CATEGORIES) {
         printf("\n%s",ENTER_CATNAME);
@@ -145,7 +153,7 @@ int addCategory(int index, int *numCategories){
  * @param int *numCategories
  * @return void
 */
-int deleteCategory(int index, int *numCategories){
+void deleteCategory(int index, int *numCategories){
     do {
         printf("%s",ENTER_CATREMOVE);
         scanf("%d", &index);
@@ -171,9 +179,11 @@ int deleteCategory(int index, int *numCategories){
  * @param char *title
  * @return void
 */
-int editTitle(char *title) {
+void editTitle(char *title) {
     printf("%s",INPUT_TITLE);
+    // enter new title
     scanf("%s", title);
+    // display chart
     displayChart(title, categories, quantities, numCategories, xAxisLabel);
 }
 
@@ -182,9 +192,11 @@ int editTitle(char *title) {
  * @param char *xAxisLabel
  * @return void
 */
-int editXLabel(char *xAxisLabel) {
+void editXLabel(char *xAxisLabel) {
     printf("%s",INPUT_LABELX);
+    // enter new x-axis label
     scanf("%s", xAxisLabel);
+    // display chart
     displayChart(title, categories, quantities, numCategories, xAxisLabel);
 }
 
